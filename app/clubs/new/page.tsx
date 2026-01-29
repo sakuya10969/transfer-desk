@@ -135,7 +135,7 @@ export default function NewClubPage() {
                   <FormItem>
                     <FormLabel>クラブ名 *</FormLabel>
                     <FormControl>
-                      <Input placeholder="Arsenal" {...field} />
+                      <Input placeholder="Liverpool" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -192,7 +192,7 @@ export default function NewClubPage() {
                       <FormLabel>創設年</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="1886"
+                          placeholder="1892"
                           inputMode="numeric"
                           {...field}
                           value={field.value ?? ""}
@@ -210,7 +210,7 @@ export default function NewClubPage() {
                     <FormItem>
                       <FormLabel>スタジアム</FormLabel>
                       <FormControl>
-                        <Input placeholder="Emirates Stadium" {...field} />
+                        <Input placeholder="Anfield" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -233,10 +233,10 @@ export default function NewClubPage() {
               />
 
               <div className="flex gap-3">
-                <Button type="submit" disabled={form.formState.isSubmitting}>
+                <Button type="submit" disabled={form.formState.isSubmitting} className="cursor-pointer">
                   {form.formState.isSubmitting ? "登録中..." : "登録"}
                 </Button>
-                <Button type="button" variant="outline" onClick={() => form.reset()}>
+                <Button type="button" variant="outline" onClick={() => form.reset()} className="cursor-pointer">
                   リセット
                 </Button>
               </div>
