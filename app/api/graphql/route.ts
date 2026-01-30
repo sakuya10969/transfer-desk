@@ -30,20 +30,20 @@ export const POST = async (req: Request) => {
     if (e instanceof z.ZodError) {
       return NextResponse.json(
         { message: "Validation error", details: e.flatten() },
-        { status: 422 }
+        { status: 422 },
       );
     }
 
     if (e instanceof HasuraRequestError) {
       return NextResponse.json(
         { message: e.message, details: e.errors ?? null },
-        { status: e.status ?? 400 }
+        { status: e.status ?? 400 },
       );
     }
 
     return NextResponse.json(
       { message: "Unexpected error", details: String(e) },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };

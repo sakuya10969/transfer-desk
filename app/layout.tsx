@@ -28,9 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <RelayEnvironment>
-          {children}
-        </RelayEnvironment>
+        <RelayEnvironment>{children}</RelayEnvironment>
       </body>
     </html>
   );

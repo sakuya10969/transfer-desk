@@ -7,25 +7,25 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { 
-    Card, 
-    CardContent, 
-    CardHeader, 
-    CardTitle, 
-    Button, 
-    Input, 
-    Textarea,
-    Form,
-    FormControl,
-    FormField,
-    FormItem, 
-    FormLabel, 
-    FormMessage,
-    Select,
-    SelectTrigger,
-    SelectValue,
-    SelectContent,
-    SelectItem,
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Input,
+  Textarea,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
 } from "@/components/ui";
 import { LEAGUES } from "@/constants";
 
@@ -40,9 +40,11 @@ const formSchema = z.object({
       (v) => {
         if (v === undefined || v === "") return true;
         const n = typeof v === "string" ? parseInt(v, 10) : v;
-        return !Number.isNaN(n) && Number.isInteger(n) && n >= 1800 && n <= 2100;
+        return (
+          !Number.isNaN(n) && Number.isInteger(n) && n >= 1800 && n <= 2100
+        );
       },
-      { message: "創設年は1800〜2100の整数" }
+      { message: "創設年は1800〜2100の整数" },
     ),
   stadium: z.string().max(120).optional(),
   note: z.string().max(500).optional(),
@@ -68,12 +70,12 @@ export default function NewClubPage() {
 
   const onSubmit = async (values: FormValues) => {
     setServerError(null);
-  
+
     const foundedYear =
       values.foundedYear === undefined || values.foundedYear === ""
         ? undefined
         : Number(values.foundedYear);
-  
+
     const res = await fetch("/api/clubs", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -85,13 +87,13 @@ export default function NewClubPage() {
         stadium: values.stadium,
       }),
     });
-  
+
     if (!res.ok) {
       const json = await res.json().catch(() => null);
       setServerError(json?.message ?? "クラブの登録に失敗しました");
       return;
     }
-  
+
     router.push("/");
   };
 
@@ -154,13 +156,19 @@ export default function NewClubPage() {
                     <FormItem>
                       <FormLabel>リーグ</FormLabel>
                       <FormControl>
-                        <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value ?? ""}
+                        >
                           <SelectTrigger>
                             <SelectValue placeholder="Select a league" />
                           </SelectTrigger>
                           <SelectContent>
                             {LEAGUES.map((league) => (
-                              <SelectItem key={league.id} value={league.id.toString()}>
+                              <SelectItem
+                                key={league.id}
+                                value={league.id.toString()}
+                              >
                                 {league.name}
                               </SelectItem>
                             ))}
@@ -223,10 +231,19 @@ export default function NewClubPage() {
               />
 
               <div className="flex gap-3">
-                <Button type="submit" disabled={form.formState.isSubmitting} className="cursor-pointer">
+                <Button
+                  type="submit"
+                  disabled={form.formState.isSubmitting}
+                  className="cursor-pointer"
+                >
                   {form.formState.isSubmitting ? "登録中..." : "登録"}
                 </Button>
-                <Button type="button" variant="outline" onClick={() => form.reset()} className="cursor-pointer">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => form.reset()}
+                  className="cursor-pointer"
+                >
                   リセット
                 </Button>
               </div>
