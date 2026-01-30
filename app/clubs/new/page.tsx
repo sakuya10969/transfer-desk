@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 
 import { 
     Card, 
@@ -61,7 +60,7 @@ export default function NewClubPage() {
       name: "",
       country: "",
       league: "",
-      foundedYear: undefined,
+      foundedYear: "",
       stadium: "",
       note: "",
     },
@@ -69,39 +68,30 @@ export default function NewClubPage() {
 
   const onSubmit = async (values: FormValues) => {
     setServerError(null);
-
+  
     const foundedYear =
       values.foundedYear === undefined || values.foundedYear === ""
         ? undefined
         : Number(values.foundedYear);
-
-    try {
-      const res = await axios.post(
-        "/api/clubs",
-        {
-          name: values.name,
-          country: values.country,
-          league: values.league,
-          foundedYear,
-          stadium: values.stadium,
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      if (!res.status || res.data.errors) {
-        setServerError(res.data.errors?.[0]?.message ?? "登録に失敗した");
-        return;
-      }
-    } catch (err: any) {
-      setServerError(
-        err.response?.data?.message ?? "登録に失敗した"
-      );
+  
+    const res = await fetch("/api/clubs", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        name: values.name,
+        country: values.country,
+        league: values.league,
+        foundedYear,
+        stadium: values.stadium,
+      }),
+    });
+  
+    if (!res.ok) {
+      const json = await res.json().catch(() => null);
+      setServerError(json?.message ?? "クラブの登録に失敗しました");
       return;
     }
-
-    // ここは一旦トップに戻すでOK。後でクラブ詳細へ遷移に変える。
+  
     router.push("/");
   };
 
