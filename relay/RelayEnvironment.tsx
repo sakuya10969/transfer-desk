@@ -1,7 +1,8 @@
 import * as React from "react";
 import { useMemo } from "react";
 import { RelayEnvironmentProvider } from "react-relay";
-import { createEnvironment } from "./environment";
+
+import { createEnvironment } from "@/relay/environment";
 
 export const RelayEnvironment = ({
   children,
