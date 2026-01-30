@@ -1,10 +1,27 @@
-import { Environment, Network, RecordSource, Store } from "relay-runtime";
+import {
+    Store,
+    RecordSource,
+    Environment,
+    Network,
+    Observable,
+  } from "relay-runtime";
+  import type { FetchFunction, IEnvironment } from "relay-runtime";
+  
+const fetchFn: FetchFunction = (params, variables) => {
+    const response = fetch("/api/graphql", {
+        method: "POST",
+        headers: [["Content-Type", "application/json"]],
+        body: JSON.stringify({
+        query: params.text,
+        variables,
+        }),
+    });
 
-import { fetchGraphQL } from "@/relay/network";
+return Observable.from(response.then((data) => data.json()));
+};
 
-export const createRelayEnvironment = () => {
-  return new Environment({
-    network: Network.create(fetchGraphQL),
-    store: new Store(new RecordSource()),
-  });
+export const createEnvironment = (): IEnvironment => {
+const network = Network.create(fetchFn);
+const store = new Store(new RecordSource());
+return new Environment({ store, network });
 };
