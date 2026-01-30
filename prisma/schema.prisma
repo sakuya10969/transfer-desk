@@ -12,3 +12,95 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum Position {
+  GK
+  CB
+  LB
+  RB
+  DM
+  CM
+  AM
+  LM
+  RM
+  LWG
+  RWG
+  CF
+  ST
+}
+
+enum TransferType {
+  PERMANENT
+  LOAN
+  FREE
+  RETURN_FROM_LOAN
+  END_OF_CONTRACT
+}
+
+model Club {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String   @db.VarChar(80)
+  country     String?  @db.VarChar(80)
+  league      String?  @db.VarChar(80)
+  foundedYear Int?     @map("founded_year")
+  stadium     String?  @db.VarChar(120)
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  players       Player[]   @relation("CurrentClub")
+  transfersFrom Transfer[] @relation("TransferFromClub")
+  transfersTo   Transfer[] @relation("TransferToClub")
+
+  @@map("clubs")
+  @@index([name])
+}
+
+model Player {
+  id            String    @id @default(uuid()) @db.Uuid
+  name          String    @db.VarChar(120)
+  position      Position?
+  nationality   String?   @db.VarChar(80)
+  birthDate     DateTime? @map("birth_date")
+
+  currentClubId String?   @db.Uuid @map("current_club_id")
+  currentClub   Club?     @relation("CurrentClub", fields: [currentClubId], references: [id], onDelete: SetNull)
+
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  transfers     Transfer[]
+
+  @@map("players")
+  @@index([name])
+  @@index([currentClubId])
+}
+
+model Transfer {
+  id           String       @id @default(uuid()) @db.Uuid
+
+  playerId     String       @db.Uuid @map("player_id")
+  player       Player       @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  fromClubId   String?      @db.Uuid @map("from_club_id")
+  fromClub     Club?        @relation("TransferFromClub", fields: [fromClubId], references: [id], onDelete: SetNull)
+
+  toClubId     String       @db.Uuid @map("to_club_id")
+  toClub       Club         @relation("TransferToClub", fields: [toClubId], references: [id], onDelete: Restrict)
+
+  transferYear  Int         @map("transfer_year")
+  transferMonth Int         @map("transfer_month")
+
+  type         TransferType @default(PERMANENT)
+  fee          Int?
+
+  loanEndYear  Int?         @map("loan_end_year")
+  loanEndMonth Int?         @map("loan_end_month")
+
+  createdAt    DateTime     @default(now()) @map("created_at")
+
+  @@map("transfers")
+  @@index([playerId, transferYear, transferMonth])
+  @@index([toClubId, transferYear, transferMonth])
+  @@index([fromClubId, transferYear, transferMonth])
+}
