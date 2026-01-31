@@ -47,7 +47,6 @@ const formSchema = z.object({
       { message: "創設年は1800〜2100の整数" },
     ),
   stadium: z.string().max(120).optional(),
-  note: z.string().max(500).optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -64,7 +63,6 @@ export default function NewClubPage() {
       league: "",
       foundedYear: "",
       stadium: "",
-      note: "",
     },
   });
 
@@ -215,20 +213,6 @@ export default function NewClubPage() {
                   )}
                 />
               </div>
-
-              <FormField
-                control={form.control}
-                name="note"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>メモ</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="補足情報" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
               <div className="flex gap-3">
                 <Button
