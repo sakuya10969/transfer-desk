@@ -9,7 +9,9 @@
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "relay": "relay-compiler",
-    "schema:fetch": "npx get-graphql-schema http://localhost:8080/v1/graphql -h 'x-hasura-admin-secret=adminsecretkey' > schema.graphql"
+    "schema:fetch": "npx get-graphql-schema http://localhost:8080/v1/graphql -h 'x-hasura-admin-secret=adminsecretkey' > schema.graphql",
+    "codegen": "pnpm schema:fetch && pnpm relay",
+    "relay:watch": "relay-compiler --watch"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
