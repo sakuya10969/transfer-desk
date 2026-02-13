@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+
 import { hasuraFetch } from "@/app/api/_lib/hasuraClient";
 
 type InsertResult = {

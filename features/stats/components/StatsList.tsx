@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Link from "next/link";
 import { useLazyLoadQuery, useMutation } from "react-relay";
+
 import { StatsListQuery } from "@/features/stats/graphql/StatsListQuery";
 import { DeleteStatMutation } from "@/features/stats/graphql/DeleteStatMutation";
 import type { StatsListQuery as StatsListQueryType } from "@/__generated__/StatsListQuery.graphql";

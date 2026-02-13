@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLazyLoadQuery } from "react-relay";
+
 import { DashboardQuery } from "@/features/dashboard/graphql/DashboardQuery";
 import type { DashboardQuery as DashboardQueryType } from "@/__generated__/DashboardQuery.graphql";
 import {

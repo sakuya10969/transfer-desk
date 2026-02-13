@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Link from "next/link";
 import { useLazyLoadQuery, useMutation } from "react-relay";
+
 import { PlayersListQuery } from "@/features/players/graphql/PlayersListQuery";
 import { DeletePlayerMutation } from "@/features/players/graphql/DeletePlayerMutation";
 import type { PlayersListQuery as PlayersListQueryType } from "@/__generated__/PlayersListQuery.graphql";

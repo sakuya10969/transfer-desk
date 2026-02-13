@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLazyLoadQuery, useMutation } from "react-relay";
+
 import { ContractDetailQuery } from "@/features/contracts/graphql/ContractDetailQuery";
 import { DeleteContractMutation } from "@/features/contracts/graphql/DeleteContractMutation";
 import type { ContractDetailQuery as ContractDetailQueryType } from "@/__generated__/ContractDetailQuery.graphql";

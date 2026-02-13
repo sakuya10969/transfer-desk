@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Link from "next/link";
 import { useLazyLoadQuery, useMutation } from "react-relay";
+
 import { ContractsListQuery } from "@/features/contracts/graphql/ContractsListQuery";
 import { DeleteContractMutation } from "@/features/contracts/graphql/DeleteContractMutation";
 import type { ContractsListQuery as ContractsListQueryType } from "@/__generated__/ContractsListQuery.graphql";

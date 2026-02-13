@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
+
 import { Button } from "@/components/ui";
 
 const ContractList = dynamic(

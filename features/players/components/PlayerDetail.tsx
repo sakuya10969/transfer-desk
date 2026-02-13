@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLazyLoadQuery, useMutation } from "react-relay";
+
 import { PlayerDetailQuery } from "@/features/players/graphql/PlayerDetailQuery";
 import { DeletePlayerMutation } from "@/features/players/graphql/DeletePlayerMutation";
 import type { PlayerDetailQuery as PlayerDetailQueryType } from "@/__generated__/PlayerDetailQuery.graphql";

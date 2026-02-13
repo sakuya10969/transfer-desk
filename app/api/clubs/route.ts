@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+
 import { createClub, getClubs, type CreateClubInput } from "@/app/api/_lib/clubs";
 
 export async function GET(req: Request) {
