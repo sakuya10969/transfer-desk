@@ -38,3 +38,50 @@ export async function createClub(input: CreateClubInput) {
   });
   return data.insert_clubs_one;
 }
+
+type GetClubsResult = {
+  clubs: Array<{
+    id: string;
+    name: string;
+    country: string | null;
+    league: string | null;
+    founded_year: number | null;
+    stadium: string | null;
+  }>;
+};
+
+const CLUBS_QUERY = `
+  query GetClubs($limit: Int, $offset: Int, $where: clubs_bool_exp) {
+    clubs(limit: $limit, offset: $offset, where: $where, order_by: [{ name: asc }]) {
+      id
+      name
+      country
+      league
+      founded_year
+      stadium
+    }
+  }
+`;
+
+export async function getClubs(opts?: {
+  limit?: number;
+  offset?: number;
+  search?: string;
+}) {
+  const { limit = 100, offset = 0, search } = opts ?? {};
+  const where = search
+    ? {
+        _or: [
+          { name: { _ilike: `%${search}%` } },
+          { country: { _ilike: `%${search}%` } },
+          { league: { _ilike: `%${search}%` } },
+        ],
+      }
+    : null;
+  const data = await hasuraFetch<GetClubsResult>(CLUBS_QUERY, {
+    limit,
+    offset,
+    where,
+  });
+  return data.clubs;
+}
