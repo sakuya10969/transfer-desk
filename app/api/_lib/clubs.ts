@@ -78,8 +78,8 @@ type ClubDetailResult = {
     updated_at: string;
     players: unknown[];
     contracts: unknown[];
-    transfers_to: unknown[];
-    transfers_from: unknown[];
+    transfersByToClubId: unknown[];
+    transfers: unknown[];
     stats: unknown[];
   } | null;
 };

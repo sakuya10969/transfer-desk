@@ -3,10 +3,7 @@ import { getRequest } from "relay-runtime";
 
 import { DashboardQuery } from "@/features/dashboard/graphql/DashboardQuery";
 
-const DASHBOARD_QUERY = getRequest(DashboardQuery).params.text;
-if (!DASHBOARD_QUERY) {
-  throw new Error("DashboardQuery text is unavailable");
-}
+const DASHBOARD_QUERY = getRequest(DashboardQuery).params.text!;
 
 type DashboardResult = {
   clubs_aggregate: { aggregate: { count: number } | null };
@@ -24,7 +21,7 @@ type DashboardResult = {
     id: string;
     name: string;
     position: string | null;
-    current_club: { id: string; name: string } | null;
+    club: { id: string; name: string } | null;
   }>;
   recent_transfers: Array<{
     id: string;
@@ -33,8 +30,8 @@ type DashboardResult = {
     type: string;
     fee: number | null;
     player: { id: string; name: string };
-    from_club: { id: string; name: string } | null;
-    to_club: { id: string; name: string };
+    club: { id: string; name: string } | null;
+    clubByToClubId: { id: string; name: string };
   }>;
 };
 

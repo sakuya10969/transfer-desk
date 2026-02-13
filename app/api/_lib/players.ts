@@ -57,7 +57,7 @@ type GetPlayersResult = {
     position: string | null;
     nationality: string | null;
     birth_date: string | null;
-    current_club?: { id: string; name: string } | null;
+    club?: { id: string; name: string } | null;
   }>;
   players_aggregate?: {
     aggregate?: {
@@ -75,7 +75,7 @@ type PlayerDetailResult = {
     birth_date: string | null;
     created_at: string;
     updated_at: string;
-    current_club: { id: string; name: string } | null;
+    club: { id: string; name: string } | null;
     contracts: unknown[];
     transfers: unknown[];
     stats: unknown[];

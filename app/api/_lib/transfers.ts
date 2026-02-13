@@ -36,8 +36,8 @@ type TransferListItem = {
   type: string;
   fee: number | null;
   player: { id: string; name: string };
-  from_club: { id: string; name: string } | null;
-  to_club: { id: string; name: string };
+  club: { id: string; name: string } | null;
+  clubByToClubId: { id: string; name: string };
 };
 
 type GetTransfersResult = {
@@ -112,8 +112,8 @@ export async function getTransfers(opts?: {
     ? {
         _or: [
           { player: { name: { _ilike: `%${search}%` } } },
-          { from_club: { name: { _ilike: `%${search}%` } } },
-          { to_club: { name: { _ilike: `%${search}%` } } },
+          { club: { name: { _ilike: `%${search}%` } } },
+          { clubByToClubId: { name: { _ilike: `%${search}%` } } },
         ],
       }
     : null;
