@@ -1,3 +1,6 @@
+"use client";
+
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 const StatForm = dynamic(
@@ -8,7 +11,9 @@ const StatForm = dynamic(
 export default function NewStatPage() {
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <StatForm />
+      <Suspense fallback={<p className="text-sm text-muted-foreground">成績フォームを読み込み中...</p>}>
+        <StatForm />
+      </Suspense>
     </div>
   );
 }

@@ -1,3 +1,6 @@
+"use client";
+
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 const Dashboard = dynamic(
@@ -14,7 +17,9 @@ export default function HomePage() {
           サッカークラブ・選手・移籍情報の管理システム
         </p>
       </div>
-      <Dashboard />
+      <Suspense fallback={<p className="text-sm text-muted-foreground">ダッシュボードを読み込み中...</p>}>
+        <Dashboard />
+      </Suspense>
     </div>
   );
 }

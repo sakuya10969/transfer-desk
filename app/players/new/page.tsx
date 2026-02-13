@@ -1,3 +1,6 @@
+"use client";
+
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 const PlayerForm = dynamic(
@@ -8,7 +11,9 @@ const PlayerForm = dynamic(
 export default function NewPlayerPage() {
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <PlayerForm />
+      <Suspense fallback={<p className="text-sm text-muted-foreground">選手フォームを読み込み中...</p>}>
+        <PlayerForm />
+      </Suspense>
     </div>
   );
 }

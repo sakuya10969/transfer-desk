@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useParams } from "next/navigation";
 import dynamic from "next/dynamic";
 
@@ -10,10 +11,21 @@ const PlayerForm = dynamic(
 
 export default function EditPlayerPage() {
   const params = useParams<{ id: string }>();
+  const id = params?.id;
+
+  if (!id) {
+    return (
+      <div className="mx-auto max-w-2xl p-6">
+        <p className="text-sm text-muted-foreground">選手IDが指定されていません</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <PlayerForm playerId={params.id} />
+      <Suspense fallback={<p className="text-sm text-muted-foreground">選手フォームを読み込み中...</p>}>
+        <PlayerForm playerId={id} />
+      </Suspense>
     </div>
   );
 }

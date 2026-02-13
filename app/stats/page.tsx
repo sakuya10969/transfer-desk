@@ -1,3 +1,6 @@
+"use client";
+
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
@@ -17,7 +20,9 @@ export default function StatsPage() {
           <Link href="/stats/new">成績を登録</Link>
         </Button>
       </div>
-      <StatsList />
+      <Suspense fallback={<p className="text-sm text-muted-foreground">成績一覧を読み込み中...</p>}>
+        <StatsList />
+      </Suspense>
     </div>
   );
 }

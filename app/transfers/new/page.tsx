@@ -1,3 +1,6 @@
+"use client";
+
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 const TransferForm = dynamic(
@@ -8,7 +11,9 @@ const TransferForm = dynamic(
 export default function NewTransferPage() {
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <TransferForm />
+      <Suspense fallback={<p className="text-sm text-muted-foreground">移籍フォームを読み込み中...</p>}>
+        <TransferForm />
+      </Suspense>
     </div>
   );
 }

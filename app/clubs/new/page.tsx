@@ -1,3 +1,6 @@
+"use client";
+
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 const ClubForm = dynamic(
@@ -8,7 +11,9 @@ const ClubForm = dynamic(
 export default function NewClubPage() {
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <ClubForm />
+      <Suspense fallback={<p className="text-sm text-muted-foreground">クラブ情報を読み込み中...</p>}>
+        <ClubForm />
+      </Suspense>
     </div>
   );
 }

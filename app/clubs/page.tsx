@@ -1,3 +1,6 @@
+"use client";
+
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
@@ -17,7 +20,9 @@ export default function ClubsPage() {
           <Link href="/clubs/new">クラブを登録</Link>
         </Button>
       </div>
-      <ClubList />
+      <Suspense fallback={<p className="text-sm text-muted-foreground">クラブ一覧を読み込み中...</p>}>
+        <ClubList />
+      </Suspense>
     </div>
   );
 }

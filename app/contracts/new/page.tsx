@@ -1,3 +1,6 @@
+"use client";
+
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 const ContractForm = dynamic(
@@ -8,7 +11,9 @@ const ContractForm = dynamic(
 export default function NewContractPage() {
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <ContractForm />
+      <Suspense fallback={<p className="text-sm text-muted-foreground">契約フォームを読み込み中...</p>}>
+        <ContractForm />
+      </Suspense>
     </div>
   );
 }
