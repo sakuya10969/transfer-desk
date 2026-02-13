@@ -1,4 +1,21 @@
 import { hasuraFetch } from "@/app/api/_lib/hasuraClient";
+import { getRequest } from "relay-runtime";
+
+import { ClubDetailQuery } from "@/features/clubs/graphql/ClubDetailQuery";
+import { CreateClubMutation } from "@/features/clubs/graphql/CreateClubMutation";
+import { DeleteClubMutation } from "@/features/clubs/graphql/DeleteClubMutation";
+import { ClubsListQuery } from "@/features/clubs/graphql/ClubsListQuery";
+import { UpdateClubMutation } from "@/features/clubs/graphql/UpdateClubMutation";
+
+const requireOperationText = (
+  text: string | null | undefined,
+  operationName: string,
+) => {
+  if (!text) {
+    throw new Error(`${operationName} text is unavailable`);
+  }
+  return text;
+};
 
 export type CreateClubInput = {
   name: string;
@@ -7,6 +24,8 @@ export type CreateClubInput = {
   founded_year: number | null;
   stadium: string | null;
 };
+
+export type UpdateClubInput = Partial<CreateClubInput>;
 
 type CreateClubResult = {
   insert_clubs_one: {
@@ -19,18 +38,10 @@ type CreateClubResult = {
   };
 };
 
-const CREATE_CLUB_MUTATION = `
-  mutation CreateClub($object: clubs_insert_input!) {
-    insert_clubs_one(object: $object) {
-      id
-      name
-      country
-      league
-      founded_year
-      stadium
-    }
-  }
-`;
+const CREATE_CLUB_MUTATION = requireOperationText(
+  getRequest(CreateClubMutation).params.text,
+  "CreateClubMutation",
+);
 
 export async function createClub(input: CreateClubInput) {
   const data = await hasuraFetch<CreateClubResult>(CREATE_CLUB_MUTATION, {
@@ -48,20 +59,65 @@ type GetClubsResult = {
     founded_year: number | null;
     stadium: string | null;
   }>;
+  clubs_aggregate?: {
+    aggregate?: {
+      count: number;
+    } | null;
+  } | null;
 };
 
-const CLUBS_QUERY = `
-  query GetClubs($limit: Int, $offset: Int, $where: clubs_bool_exp) {
-    clubs(limit: $limit, offset: $offset, where: $where, order_by: [{ name: asc }]) {
-      id
-      name
-      country
-      league
-      founded_year
-      stadium
-    }
-  }
-`;
+type ClubDetailResult = {
+  clubs_by_pk: {
+    id: string;
+    name: string;
+    country: string | null;
+    league: string | null;
+    founded_year: number | null;
+    stadium: string | null;
+    created_at: string;
+    updated_at: string;
+    players: unknown[];
+    contracts: unknown[];
+    transfers_to: unknown[];
+    transfers_from: unknown[];
+    stats: unknown[];
+  } | null;
+};
+
+type UpdateClubResult = {
+  update_clubs_by_pk: {
+    id: string;
+    name: string;
+    country: string | null;
+    league: string | null;
+    founded_year: number | null;
+    stadium: string | null;
+    updated_at: string;
+  } | null;
+};
+
+type DeleteClubResult = {
+  delete_clubs_by_pk: {
+    id: string;
+  } | null;
+};
+
+const CLUBS_QUERY = requireOperationText(
+  getRequest(ClubsListQuery).params.text,
+  "ClubsListQuery",
+);
+const CLUB_DETAIL_QUERY = requireOperationText(
+  getRequest(ClubDetailQuery).params.text,
+  "ClubDetailQuery",
+);
+const UPDATE_CLUB_MUTATION = requireOperationText(
+  getRequest(UpdateClubMutation).params.text,
+  "UpdateClubMutation",
+);
+const DELETE_CLUB_MUTATION = requireOperationText(
+  getRequest(DeleteClubMutation).params.text,
+  "DeleteClubMutation",
+);
 
 export async function getClubs(opts?: {
   limit?: number;
@@ -82,6 +138,25 @@ export async function getClubs(opts?: {
     limit,
     offset,
     where,
+    order_by: [{ name: "asc" }],
   });
   return data.clubs;
+}
+
+export async function getClubById(id: string) {
+  const data = await hasuraFetch<ClubDetailResult>(CLUB_DETAIL_QUERY, { id });
+  return data.clubs_by_pk;
+}
+
+export async function updateClub(id: string, set: UpdateClubInput) {
+  const data = await hasuraFetch<UpdateClubResult>(UPDATE_CLUB_MUTATION, {
+    id,
+    set,
+  });
+  return data.update_clubs_by_pk;
+}
+
+export async function deleteClub(id: string) {
+  const data = await hasuraFetch<DeleteClubResult>(DELETE_CLUB_MUTATION, { id });
+  return data.delete_clubs_by_pk;
 }
