@@ -14,6 +14,300 @@ directive @cached(
 ) on QUERY
 
 """
+columns and relationships of "_prisma_migrations"
+"""
+type _prisma_migrations {
+  applied_steps_count: Int!
+  checksum: String!
+  finished_at: timestamptz
+  id: String!
+  logs: String
+  migration_name: String!
+  rolled_back_at: timestamptz
+  started_at: timestamptz!
+}
+
+"""
+aggregated selection of "_prisma_migrations"
+"""
+type _prisma_migrations_aggregate {
+  aggregate: _prisma_migrations_aggregate_fields
+  nodes: [_prisma_migrations!]!
+}
+
+"""
+aggregate fields of "_prisma_migrations"
+"""
+type _prisma_migrations_aggregate_fields {
+  avg: _prisma_migrations_avg_fields
+  count(columns: [_prisma_migrations_select_column!], distinct: Boolean): Int!
+  max: _prisma_migrations_max_fields
+  min: _prisma_migrations_min_fields
+  stddev: _prisma_migrations_stddev_fields
+  stddev_pop: _prisma_migrations_stddev_pop_fields
+  stddev_samp: _prisma_migrations_stddev_samp_fields
+  sum: _prisma_migrations_sum_fields
+  var_pop: _prisma_migrations_var_pop_fields
+  var_samp: _prisma_migrations_var_samp_fields
+  variance: _prisma_migrations_variance_fields
+}
+
+"""aggregate avg on columns"""
+type _prisma_migrations_avg_fields {
+  applied_steps_count: Float
+}
+
+"""
+Boolean expression to filter rows from the table "_prisma_migrations". All fields are combined with a logical 'AND'.
+"""
+input _prisma_migrations_bool_exp {
+  _and: [_prisma_migrations_bool_exp!]
+  _not: _prisma_migrations_bool_exp
+  _or: [_prisma_migrations_bool_exp!]
+  applied_steps_count: Int_comparison_exp
+  checksum: String_comparison_exp
+  finished_at: timestamptz_comparison_exp
+  id: String_comparison_exp
+  logs: String_comparison_exp
+  migration_name: String_comparison_exp
+  rolled_back_at: timestamptz_comparison_exp
+  started_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "_prisma_migrations"
+"""
+enum _prisma_migrations_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  _prisma_migrations_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "_prisma_migrations"
+"""
+input _prisma_migrations_inc_input {
+  applied_steps_count: Int
+}
+
+"""
+input type for inserting data into table "_prisma_migrations"
+"""
+input _prisma_migrations_insert_input {
+  applied_steps_count: Int
+  checksum: String
+  finished_at: timestamptz
+  id: String
+  logs: String
+  migration_name: String
+  rolled_back_at: timestamptz
+  started_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type _prisma_migrations_max_fields {
+  applied_steps_count: Int
+  checksum: String
+  finished_at: timestamptz
+  id: String
+  logs: String
+  migration_name: String
+  rolled_back_at: timestamptz
+  started_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type _prisma_migrations_min_fields {
+  applied_steps_count: Int
+  checksum: String
+  finished_at: timestamptz
+  id: String
+  logs: String
+  migration_name: String
+  rolled_back_at: timestamptz
+  started_at: timestamptz
+}
+
+"""
+response of any mutation on the table "_prisma_migrations"
+"""
+type _prisma_migrations_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [_prisma_migrations!]!
+}
+
+"""
+on_conflict condition type for table "_prisma_migrations"
+"""
+input _prisma_migrations_on_conflict {
+  constraint: _prisma_migrations_constraint!
+  update_columns: [_prisma_migrations_update_column!]! = []
+  where: _prisma_migrations_bool_exp
+}
+
+"""Ordering options when selecting data from "_prisma_migrations"."""
+input _prisma_migrations_order_by {
+  applied_steps_count: order_by
+  checksum: order_by
+  finished_at: order_by
+  id: order_by
+  logs: order_by
+  migration_name: order_by
+  rolled_back_at: order_by
+  started_at: order_by
+}
+
+"""primary key columns input for table: _prisma_migrations"""
+input _prisma_migrations_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "_prisma_migrations"
+"""
+enum _prisma_migrations_select_column {
+  """column name"""
+  applied_steps_count
+
+  """column name"""
+  checksum
+
+  """column name"""
+  finished_at
+
+  """column name"""
+  id
+
+  """column name"""
+  logs
+
+  """column name"""
+  migration_name
+
+  """column name"""
+  rolled_back_at
+
+  """column name"""
+  started_at
+}
+
+"""
+input type for updating data in table "_prisma_migrations"
+"""
+input _prisma_migrations_set_input {
+  applied_steps_count: Int
+  checksum: String
+  finished_at: timestamptz
+  id: String
+  logs: String
+  migration_name: String
+  rolled_back_at: timestamptz
+  started_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type _prisma_migrations_stddev_fields {
+  applied_steps_count: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type _prisma_migrations_stddev_pop_fields {
+  applied_steps_count: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type _prisma_migrations_stddev_samp_fields {
+  applied_steps_count: Float
+}
+
+"""
+Streaming cursor of the table "_prisma_migrations"
+"""
+input _prisma_migrations_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: _prisma_migrations_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input _prisma_migrations_stream_cursor_value_input {
+  applied_steps_count: Int
+  checksum: String
+  finished_at: timestamptz
+  id: String
+  logs: String
+  migration_name: String
+  rolled_back_at: timestamptz
+  started_at: timestamptz
+}
+
+"""aggregate sum on columns"""
+type _prisma_migrations_sum_fields {
+  applied_steps_count: Int
+}
+
+"""
+update columns of table "_prisma_migrations"
+"""
+enum _prisma_migrations_update_column {
+  """column name"""
+  applied_steps_count
+
+  """column name"""
+  checksum
+
+  """column name"""
+  finished_at
+
+  """column name"""
+  id
+
+  """column name"""
+  logs
+
+  """column name"""
+  migration_name
+
+  """column name"""
+  rolled_back_at
+
+  """column name"""
+  started_at
+}
+
+input _prisma_migrations_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: _prisma_migrations_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: _prisma_migrations_set_input
+
+  """filter the rows which have to be updated"""
+  where: _prisma_migrations_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type _prisma_migrations_var_pop_fields {
+  applied_steps_count: Float
+}
+
+"""aggregate var_samp on columns"""
+type _prisma_migrations_var_samp_fields {
+  applied_steps_count: Float
+}
+
+"""aggregate variance on columns"""
+type _prisma_migrations_variance_fields {
+  applied_steps_count: Float
+}
+
+"""
 columns and relationships of "clubs"
 """
 type clubs {
@@ -133,7 +427,25 @@ type clubs {
   ): stats_aggregate!
 
   """An array relationship"""
-  transfers_from(
+  transfers(
+    """distinct select on columns"""
+    distinct_on: [transfers_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [transfers_order_by!]
+
+    """filter the rows returned"""
+    where: transfers_bool_exp
+  ): [transfers!]!
+
+  """An array relationship"""
+  transfersByToClubId(
     """distinct select on columns"""
     distinct_on: [transfers_select_column!]
 
@@ -151,7 +463,7 @@ type clubs {
   ): [transfers!]!
 
   """An aggregate relationship"""
-  transfers_from_aggregate(
+  transfersByToClubId_aggregate(
     """distinct select on columns"""
     distinct_on: [transfers_select_column!]
 
@@ -168,26 +480,8 @@ type clubs {
     where: transfers_bool_exp
   ): transfers_aggregate!
 
-  """An array relationship"""
-  transfers_to(
-    """distinct select on columns"""
-    distinct_on: [transfers_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [transfers_order_by!]
-
-    """filter the rows returned"""
-    where: transfers_bool_exp
-  ): [transfers!]!
-
   """An aggregate relationship"""
-  transfers_to_aggregate(
+  transfers_aggregate(
     """distinct select on columns"""
     distinct_on: [transfers_select_column!]
 
@@ -256,10 +550,10 @@ input clubs_bool_exp {
   stadium: String_comparison_exp
   stats: stats_bool_exp
   stats_aggregate: stats_aggregate_bool_exp
-  transfers_from: transfers_bool_exp
-  transfers_from_aggregate: transfers_aggregate_bool_exp
-  transfers_to: transfers_bool_exp
-  transfers_to_aggregate: transfers_aggregate_bool_exp
+  transfers: transfers_bool_exp
+  transfersByToClubId: transfers_bool_exp
+  transfersByToClubId_aggregate: transfers_aggregate_bool_exp
+  transfers_aggregate: transfers_aggregate_bool_exp
   updated_at: timestamp_comparison_exp
 }
 
@@ -294,8 +588,8 @@ input clubs_insert_input {
   players: players_arr_rel_insert_input
   stadium: String
   stats: stats_arr_rel_insert_input
-  transfers_from: transfers_arr_rel_insert_input
-  transfers_to: transfers_arr_rel_insert_input
+  transfers: transfers_arr_rel_insert_input
+  transfersByToClubId: transfers_arr_rel_insert_input
   updated_at: timestamp
 }
 
@@ -365,8 +659,8 @@ input clubs_order_by {
   players_aggregate: players_aggregate_order_by
   stadium: order_by
   stats_aggregate: stats_aggregate_order_by
-  transfers_from_aggregate: transfers_aggregate_order_by
-  transfers_to_aggregate: transfers_aggregate_order_by
+  transfersByToClubId_aggregate: transfers_aggregate_order_by
+  transfers_aggregate: transfers_aggregate_order_by
   updated_at: order_by
 }
 
@@ -1004,6 +1298,19 @@ input Int_comparison_exp {
 """mutation root"""
 type mutation_root {
   """
+  delete data from the table: "_prisma_migrations"
+  """
+  delete__prisma_migrations(
+    """filter the rows which have to be deleted"""
+    where: _prisma_migrations_bool_exp!
+  ): _prisma_migrations_mutation_response
+
+  """
+  delete single row from the table: "_prisma_migrations"
+  """
+  delete__prisma_migrations_by_pk(id: String!): _prisma_migrations
+
+  """
   delete data from the table: "clubs"
   """
   delete_clubs(
@@ -1067,6 +1374,28 @@ type mutation_root {
   delete single row from the table: "transfers"
   """
   delete_transfers_by_pk(id: uuid!): transfers
+
+  """
+  insert data into the table: "_prisma_migrations"
+  """
+  insert__prisma_migrations(
+    """the rows to be inserted"""
+    objects: [_prisma_migrations_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: _prisma_migrations_on_conflict
+  ): _prisma_migrations_mutation_response
+
+  """
+  insert a single row into the table: "_prisma_migrations"
+  """
+  insert__prisma_migrations_one(
+    """the row to be inserted"""
+    object: _prisma_migrations_insert_input!
+
+    """upsert condition"""
+    on_conflict: _prisma_migrations_on_conflict
+  ): _prisma_migrations
 
   """
   insert data into the table: "clubs"
@@ -1177,6 +1506,40 @@ type mutation_root {
     """upsert condition"""
     on_conflict: transfers_on_conflict
   ): transfers
+
+  """
+  update data of the table: "_prisma_migrations"
+  """
+  update__prisma_migrations(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: _prisma_migrations_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: _prisma_migrations_set_input
+
+    """filter the rows which have to be updated"""
+    where: _prisma_migrations_bool_exp!
+  ): _prisma_migrations_mutation_response
+
+  """
+  update single row of the table: "_prisma_migrations"
+  """
+  update__prisma_migrations_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: _prisma_migrations_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: _prisma_migrations_set_input
+    pk_columns: _prisma_migrations_pk_columns_input!
+  ): _prisma_migrations
+
+  """
+  update multiples rows of table: "_prisma_migrations"
+  """
+  update__prisma_migrations_many(
+    """updates to execute, in order"""
+    updates: [_prisma_migrations_updates!]!
+  ): [_prisma_migrations_mutation_response]
 
   """
   update data of the table: "clubs"
@@ -1370,6 +1733,9 @@ columns and relationships of "players"
 type players {
   birth_date: timestamp
 
+  """An object relationship"""
+  club: clubs
+
   """An array relationship"""
   contracts(
     """distinct select on columns"""
@@ -1406,9 +1772,6 @@ type players {
     where: contracts_bool_exp
   ): contracts_aggregate!
   created_at: timestamp!
-
-  """An object relationship"""
-  current_club: clubs
   current_club_id: uuid
   id: uuid!
   name: String!
@@ -1544,10 +1907,10 @@ input players_bool_exp {
   _not: players_bool_exp
   _or: [players_bool_exp!]
   birth_date: timestamp_comparison_exp
+  club: clubs_bool_exp
   contracts: contracts_bool_exp
   contracts_aggregate: contracts_aggregate_bool_exp
   created_at: timestamp_comparison_exp
-  current_club: clubs_bool_exp
   current_club_id: uuid_comparison_exp
   id: uuid_comparison_exp
   name: String_comparison_exp
@@ -1575,9 +1938,9 @@ input type for inserting data into table "players"
 """
 input players_insert_input {
   birth_date: timestamp
+  club: clubs_obj_rel_insert_input
   contracts: contracts_arr_rel_insert_input
   created_at: timestamp
-  current_club: clubs_obj_rel_insert_input
   current_club_id: uuid
   id: uuid
   name: String
@@ -1673,9 +2036,9 @@ input players_on_conflict {
 """Ordering options when selecting data from "players"."""
 input players_order_by {
   birth_date: order_by
+  club: clubs_order_by
   contracts_aggregate: contracts_aggregate_order_by
   created_at: order_by
-  current_club: clubs_order_by
   current_club_id: order_by
   id: order_by
   name: order_by
@@ -1812,6 +2175,51 @@ input Position_comparison_exp {
 }
 
 type query_root {
+  """
+  fetch data from the table: "_prisma_migrations"
+  """
+  _prisma_migrations(
+    """distinct select on columns"""
+    distinct_on: [_prisma_migrations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [_prisma_migrations_order_by!]
+
+    """filter the rows returned"""
+    where: _prisma_migrations_bool_exp
+  ): [_prisma_migrations!]!
+
+  """
+  fetch aggregated fields from the table: "_prisma_migrations"
+  """
+  _prisma_migrations_aggregate(
+    """distinct select on columns"""
+    distinct_on: [_prisma_migrations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [_prisma_migrations_order_by!]
+
+    """filter the rows returned"""
+    where: _prisma_migrations_bool_exp
+  ): _prisma_migrations_aggregate!
+
+  """
+  fetch data from the table: "_prisma_migrations" using primary key columns
+  """
+  _prisma_migrations_by_pk(id: String!): _prisma_migrations
+
   """
   fetch data from the table: "clubs"
   """
@@ -2550,6 +2958,65 @@ input String_comparison_exp {
 
 type subscription_root {
   """
+  fetch data from the table: "_prisma_migrations"
+  """
+  _prisma_migrations(
+    """distinct select on columns"""
+    distinct_on: [_prisma_migrations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [_prisma_migrations_order_by!]
+
+    """filter the rows returned"""
+    where: _prisma_migrations_bool_exp
+  ): [_prisma_migrations!]!
+
+  """
+  fetch aggregated fields from the table: "_prisma_migrations"
+  """
+  _prisma_migrations_aggregate(
+    """distinct select on columns"""
+    distinct_on: [_prisma_migrations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [_prisma_migrations_order_by!]
+
+    """filter the rows returned"""
+    where: _prisma_migrations_bool_exp
+  ): _prisma_migrations_aggregate!
+
+  """
+  fetch data from the table: "_prisma_migrations" using primary key columns
+  """
+  _prisma_migrations_by_pk(id: String!): _prisma_migrations
+
+  """
+  fetch data from the table in a streaming manner: "_prisma_migrations"
+  """
+  _prisma_migrations_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [_prisma_migrations_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: _prisma_migrations_bool_exp
+  ): [_prisma_migrations!]!
+
+  """
   fetch data from the table: "clubs"
   """
   clubs(
@@ -2836,15 +3303,34 @@ input timestamp_comparison_exp {
   _nin: [timestamp!]
 }
 
+scalar timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
 """
 columns and relationships of "transfers"
 """
 type transfers {
-  created_at: timestamp!
-  fee: Int
+  """An object relationship"""
+  club: clubs
 
   """An object relationship"""
-  from_club: clubs
+  clubByToClubId: clubs!
+  created_at: timestamp!
+  fee: Int
   from_club_id: uuid
   id: uuid!
   loan_end_month: Int
@@ -2853,13 +3339,11 @@ type transfers {
   """An object relationship"""
   player: players!
   player_id: uuid!
-
-  """An object relationship"""
-  to_club: clubs!
   to_club_id: uuid!
   transfer_month: Int!
   transfer_year: Int!
   type: TransferType!
+  updated_at: timestamp!
 }
 
 """
@@ -2952,20 +3436,21 @@ input transfers_bool_exp {
   _and: [transfers_bool_exp!]
   _not: transfers_bool_exp
   _or: [transfers_bool_exp!]
+  club: clubs_bool_exp
+  clubByToClubId: clubs_bool_exp
   created_at: timestamp_comparison_exp
   fee: Int_comparison_exp
-  from_club: clubs_bool_exp
   from_club_id: uuid_comparison_exp
   id: uuid_comparison_exp
   loan_end_month: Int_comparison_exp
   loan_end_year: Int_comparison_exp
   player: players_bool_exp
   player_id: uuid_comparison_exp
-  to_club: clubs_bool_exp
   to_club_id: uuid_comparison_exp
   transfer_month: Int_comparison_exp
   transfer_year: Int_comparison_exp
   type: TransferType_comparison_exp
+  updated_at: timestamp_comparison_exp
 }
 
 """
@@ -2993,20 +3478,21 @@ input transfers_inc_input {
 input type for inserting data into table "transfers"
 """
 input transfers_insert_input {
+  club: clubs_obj_rel_insert_input
+  clubByToClubId: clubs_obj_rel_insert_input
   created_at: timestamp
   fee: Int
-  from_club: clubs_obj_rel_insert_input
   from_club_id: uuid
   id: uuid
   loan_end_month: Int
   loan_end_year: Int
   player: players_obj_rel_insert_input
   player_id: uuid
-  to_club: clubs_obj_rel_insert_input
   to_club_id: uuid
   transfer_month: Int
   transfer_year: Int
   type: TransferType
+  updated_at: timestamp
 }
 
 """aggregate max on columns"""
@@ -3022,6 +3508,7 @@ type transfers_max_fields {
   transfer_month: Int
   transfer_year: Int
   type: TransferType
+  updated_at: timestamp
 }
 
 """
@@ -3039,6 +3526,7 @@ input transfers_max_order_by {
   transfer_month: order_by
   transfer_year: order_by
   type: order_by
+  updated_at: order_by
 }
 
 """aggregate min on columns"""
@@ -3054,6 +3542,7 @@ type transfers_min_fields {
   transfer_month: Int
   transfer_year: Int
   type: TransferType
+  updated_at: timestamp
 }
 
 """
@@ -3071,6 +3560,7 @@ input transfers_min_order_by {
   transfer_month: order_by
   transfer_year: order_by
   type: order_by
+  updated_at: order_by
 }
 
 """
@@ -3095,20 +3585,21 @@ input transfers_on_conflict {
 
 """Ordering options when selecting data from "transfers"."""
 input transfers_order_by {
+  club: clubs_order_by
+  clubByToClubId: clubs_order_by
   created_at: order_by
   fee: order_by
-  from_club: clubs_order_by
   from_club_id: order_by
   id: order_by
   loan_end_month: order_by
   loan_end_year: order_by
   player: players_order_by
   player_id: order_by
-  to_club: clubs_order_by
   to_club_id: order_by
   transfer_month: order_by
   transfer_year: order_by
   type: order_by
+  updated_at: order_by
 }
 
 """primary key columns input for table: transfers"""
@@ -3152,6 +3643,9 @@ enum transfers_select_column {
 
   """column name"""
   type
+
+  """column name"""
+  updated_at
 }
 
 """
@@ -3169,6 +3663,7 @@ input transfers_set_input {
   transfer_month: Int
   transfer_year: Int
   type: TransferType
+  updated_at: timestamp
 }
 
 """aggregate stddev on columns"""
@@ -3255,6 +3750,7 @@ input transfers_stream_cursor_value_input {
   transfer_month: Int
   transfer_year: Int
   type: TransferType
+  updated_at: timestamp
 }
 
 """aggregate sum on columns"""
@@ -3313,6 +3809,9 @@ enum transfers_update_column {
 
   """column name"""
   type
+
+  """column name"""
+  updated_at
 }
 
 input transfers_updates {
