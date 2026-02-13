@@ -18,7 +18,7 @@ import {
 const PAGE_SIZE = 20;
 
 export function ContractList() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState<number>(0);
 
   const data = useLazyLoadQuery<ContractsListQueryType>(ContractsListQuery, {
     limit: PAGE_SIZE,

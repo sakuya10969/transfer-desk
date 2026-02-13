@@ -19,8 +19,8 @@ import {
 const PAGE_SIZE = 20;
 
 export function TransferList() {
-  const [page, setPage] = useState(0);
-  const [yearFilter, setYearFilter] = useState("");
+  const [page, setPage] = useState<number>(0);
+  const [yearFilter, setYearFilter] = useState<string>("");
 
   const where = yearFilter
     ? { transfer_year: { _eq: Number(yearFilter) } }

@@ -8,7 +8,7 @@ const STORAGE_KEY = "transfer-desk-theme";
 
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme>("light");
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState<boolean>(false);
 
   useEffect(() => {
     setMounted(true);

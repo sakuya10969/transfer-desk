@@ -25,9 +25,9 @@ import { POSITIONS } from "@/constants/positions";
 const PAGE_SIZE = 20;
 
 export function PlayerList() {
-  const [page, setPage] = useState(0);
-  const [search, setSearch] = useState("");
-  const [searchInput, setSearchInput] = useState("");
+  const [page, setPage] = useState<number>(0);
+  const [search, setSearch] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string>("");
   const [positionFilter, setPositionFilter] = useState<string>("");
 
   const conditions: any[] = [];

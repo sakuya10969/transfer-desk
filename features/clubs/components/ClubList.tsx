@@ -19,9 +19,9 @@ import {
 const PAGE_SIZE = 20;
 
 export function ClubList() {
-  const [page, setPage] = useState(0);
-  const [search, setSearch] = useState("");
-  const [searchInput, setSearchInput] = useState("");
+  const [page, setPage] = useState<number>(0);
+  const [search, setSearch] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string>("");
 
   const where = search
     ? { name: { _ilike: `%${search}%` } }

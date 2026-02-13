@@ -19,8 +19,8 @@ import {
 const PAGE_SIZE = 20;
 
 export function StatsList() {
-  const [page, setPage] = useState(0);
-  const [seasonFilter, setSeasonFilter] = useState("");
+  const [page, setPage] = useState<number>(0);
+  const [seasonFilter, setSeasonFilter] = useState<string>("");
 
   const where = seasonFilter
     ? { season: { _eq: seasonFilter } }
