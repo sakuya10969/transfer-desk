@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b80b14dca024dd3bf7a68575b3f6bf83>>
+ * @generated SignedSource<<2cdd56317f4e7bbec9e8aea55a08e643>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,10 @@ export type PlayerDetailQuery$variables = {
 export type PlayerDetailQuery$data = {
   readonly players_by_pk: {
     readonly birth_date: any | null | undefined;
+    readonly club: {
+      readonly id: any;
+      readonly name: string;
+    } | null | undefined;
     readonly contracts: ReadonlyArray<{
       readonly clause: number | null | undefined;
       readonly club: {
@@ -27,10 +31,6 @@ export type PlayerDetailQuery$data = {
       readonly start_date: any;
     }>;
     readonly created_at: any;
-    readonly current_club: {
-      readonly id: any;
-      readonly name: string;
-    } | null | undefined;
     readonly id: any;
     readonly name: string;
     readonly nationality: string | null | undefined;
@@ -47,16 +47,16 @@ export type PlayerDetailQuery$data = {
       readonly season: string;
     }>;
     readonly transfers: ReadonlyArray<{
-      readonly fee: number | null | undefined;
-      readonly from_club: {
+      readonly club: {
         readonly id: any;
         readonly name: string;
       } | null | undefined;
-      readonly id: any;
-      readonly to_club: {
+      readonly clubByToClubId: {
         readonly id: any;
         readonly name: string;
       };
+      readonly fee: number | null | undefined;
+      readonly id: any;
       readonly transfer_month: number;
       readonly transfer_year: number;
       readonly type: any;
@@ -157,16 +157,7 @@ v5 = [
         "name": "updated_at",
         "storageKey": null
       },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "clubs",
-        "kind": "LinkedField",
-        "name": "current_club",
-        "plural": false,
-        "selections": (v3/*: any*/),
-        "storageKey": null
-      },
+      (v4/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -245,22 +236,13 @@ v5 = [
             "name": "fee",
             "storageKey": null
           },
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
             "concreteType": "clubs",
             "kind": "LinkedField",
-            "name": "from_club",
-            "plural": false,
-            "selections": (v3/*: any*/),
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "clubs",
-            "kind": "LinkedField",
-            "name": "to_club",
+            "name": "clubByToClubId",
             "plural": false,
             "selections": (v3/*: any*/),
             "storageKey": null
@@ -341,16 +323,16 @@ return {
     "selections": (v5/*: any*/)
   },
   "params": {
-    "cacheID": "90e86686fbb4eb8b3e56ab42cf9d7bdb",
+    "cacheID": "ad414e1a2c006f5785db1c522b3efa3c",
     "id": null,
     "metadata": {},
     "name": "PlayerDetailQuery",
     "operationKind": "query",
-    "text": "query PlayerDetailQuery(\n  $id: uuid!\n) {\n  players_by_pk(id: $id) {\n    id\n    name\n    position\n    nationality\n    birth_date\n    created_at\n    updated_at\n    current_club {\n      id\n      name\n    }\n    contracts {\n      id\n      start_date\n      end_date\n      salary\n      clause\n      club {\n        id\n        name\n      }\n    }\n    transfers {\n      id\n      transfer_year\n      transfer_month\n      type\n      fee\n      from_club {\n        id\n        name\n      }\n      to_club {\n        id\n        name\n      }\n    }\n    stats(order_by: [{season: desc}]) {\n      id\n      season\n      matches\n      goals\n      assists\n      club {\n        id\n        name\n      }\n    }\n  }\n}\n"
+    "text": "query PlayerDetailQuery(\n  $id: uuid!\n) {\n  players_by_pk(id: $id) {\n    id\n    name\n    position\n    nationality\n    birth_date\n    created_at\n    updated_at\n    club {\n      id\n      name\n    }\n    contracts {\n      id\n      start_date\n      end_date\n      salary\n      clause\n      club {\n        id\n        name\n      }\n    }\n    transfers {\n      id\n      transfer_year\n      transfer_month\n      type\n      fee\n      club {\n        id\n        name\n      }\n      clubByToClubId {\n        id\n        name\n      }\n    }\n    stats(order_by: [{season: desc}]) {\n      id\n      season\n      matches\n      goals\n      assists\n      club {\n        id\n        name\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "f937cd6a980b9c353c04f88c7020663e";
+(node as any).hash = "aee266b8085fe9655e61cd1ffdd1bdd0";
 
 export default node;

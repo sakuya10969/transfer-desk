@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<718a1aa3e1e5d0f35d8f82d240f2e8bd>>
+ * @generated SignedSource<<1a44c332d8f2ccb19781af382af160c5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -48,14 +48,14 @@ export type ClubDetailQuery$data = {
       };
       readonly season: string;
     }>;
-    readonly transfers_from: ReadonlyArray<{
-      readonly fee: number | null | undefined;
-      readonly id: any;
-      readonly player: {
+    readonly transfers: ReadonlyArray<{
+      readonly clubByToClubId: {
         readonly id: any;
         readonly name: string;
       };
-      readonly to_club: {
+      readonly fee: number | null | undefined;
+      readonly id: any;
+      readonly player: {
         readonly id: any;
         readonly name: string;
       };
@@ -63,12 +63,12 @@ export type ClubDetailQuery$data = {
       readonly transfer_year: number;
       readonly type: any;
     }>;
-    readonly transfers_to: ReadonlyArray<{
-      readonly fee: number | null | undefined;
-      readonly from_club: {
+    readonly transfersByToClubId: ReadonlyArray<{
+      readonly club: {
         readonly id: any;
         readonly name: string;
       } | null | undefined;
+      readonly fee: number | null | undefined;
       readonly id: any;
       readonly player: {
         readonly id: any;
@@ -275,7 +275,7 @@ v9 = [
         "args": null,
         "concreteType": "transfers",
         "kind": "LinkedField",
-        "name": "transfers_to",
+        "name": "transfersByToClubId",
         "plural": true,
         "selections": [
           (v1/*: any*/),
@@ -289,7 +289,7 @@ v9 = [
             "args": null,
             "concreteType": "clubs",
             "kind": "LinkedField",
-            "name": "from_club",
+            "name": "club",
             "plural": false,
             "selections": (v3/*: any*/),
             "storageKey": null
@@ -302,7 +302,7 @@ v9 = [
         "args": null,
         "concreteType": "transfers",
         "kind": "LinkedField",
-        "name": "transfers_from",
+        "name": "transfers",
         "plural": true,
         "selections": [
           (v1/*: any*/),
@@ -316,7 +316,7 @@ v9 = [
             "args": null,
             "concreteType": "clubs",
             "kind": "LinkedField",
-            "name": "to_club",
+            "name": "clubByToClubId",
             "plural": false,
             "selections": (v3/*: any*/),
             "storageKey": null
@@ -387,16 +387,16 @@ return {
     "selections": (v9/*: any*/)
   },
   "params": {
-    "cacheID": "96348a7524fbfa2ad7308c7859267f4c",
+    "cacheID": "262fd9d763794b4061001892f696aab1",
     "id": null,
     "metadata": {},
     "name": "ClubDetailQuery",
     "operationKind": "query",
-    "text": "query ClubDetailQuery(\n  $id: uuid!\n) {\n  clubs_by_pk(id: $id) {\n    id\n    name\n    country\n    league\n    founded_year\n    stadium\n    created_at\n    updated_at\n    players {\n      id\n      name\n      position\n      nationality\n    }\n    contracts {\n      id\n      start_date\n      end_date\n      salary\n      player {\n        id\n        name\n      }\n    }\n    transfers_to {\n      id\n      transfer_year\n      transfer_month\n      type\n      fee\n      player {\n        id\n        name\n      }\n      from_club {\n        id\n        name\n      }\n    }\n    transfers_from {\n      id\n      transfer_year\n      transfer_month\n      type\n      fee\n      player {\n        id\n        name\n      }\n      to_club {\n        id\n        name\n      }\n    }\n    stats {\n      id\n      season\n      matches\n      goals\n      assists\n      player {\n        id\n        name\n      }\n    }\n  }\n}\n"
+    "text": "query ClubDetailQuery(\n  $id: uuid!\n) {\n  clubs_by_pk(id: $id) {\n    id\n    name\n    country\n    league\n    founded_year\n    stadium\n    created_at\n    updated_at\n    players {\n      id\n      name\n      position\n      nationality\n    }\n    contracts {\n      id\n      start_date\n      end_date\n      salary\n      player {\n        id\n        name\n      }\n    }\n    transfersByToClubId {\n      id\n      transfer_year\n      transfer_month\n      type\n      fee\n      player {\n        id\n        name\n      }\n      club {\n        id\n        name\n      }\n    }\n    transfers {\n      id\n      transfer_year\n      transfer_month\n      type\n      fee\n      player {\n        id\n        name\n      }\n      clubByToClubId {\n        id\n        name\n      }\n    }\n    stats {\n      id\n      season\n      matches\n      goals\n      assists\n      player {\n        id\n        name\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "db2a4ae9a63e11c1a208e5af26c4b54d";
+(node as any).hash = "639990a990af8f50657ae71083906382";
 
 export default node;

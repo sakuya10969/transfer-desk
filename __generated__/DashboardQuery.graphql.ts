@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<94058ce5b3e5650db9b1057487d8acc7>>
+ * @generated SignedSource<<237c272bfa3e1840e253e440a3d53dc4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -34,7 +34,7 @@ export type DashboardQuery$data = {
     readonly updated_at: any;
   }>;
   readonly recent_players: ReadonlyArray<{
-    readonly current_club: {
+    readonly club: {
       readonly id: any;
       readonly name: string;
     } | null | undefined;
@@ -43,17 +43,17 @@ export type DashboardQuery$data = {
     readonly position: any | null | undefined;
   }>;
   readonly recent_transfers: ReadonlyArray<{
-    readonly fee: number | null | undefined;
-    readonly from_club: {
+    readonly club: {
       readonly id: any;
       readonly name: string;
     } | null | undefined;
-    readonly id: any;
-    readonly player: {
+    readonly clubByToClubId: {
       readonly id: any;
       readonly name: string;
     };
-    readonly to_club: {
+    readonly fee: number | null | undefined;
+    readonly id: any;
+    readonly player: {
       readonly id: any;
       readonly name: string;
     };
@@ -117,7 +117,17 @@ v5 = [
   (v2/*: any*/),
   (v3/*: any*/)
 ],
-v6 = [
+v6 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "clubs",
+  "kind": "LinkedField",
+  "name": "club",
+  "plural": false,
+  "selections": (v5/*: any*/),
+  "storageKey": null
+},
+v7 = [
   {
     "alias": null,
     "args": null,
@@ -264,16 +274,7 @@ v6 = [
         "name": "position",
         "storageKey": null
       },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "clubs",
-        "kind": "LinkedField",
-        "name": "current_club",
-        "plural": false,
-        "selections": (v5/*: any*/),
-        "storageKey": null
-      }
+      (v6/*: any*/)
     ],
     "storageKey": "players(limit:5,order_by:[{\"created_at\":\"desc\"}])"
   },
@@ -324,22 +325,13 @@ v6 = [
         "selections": (v5/*: any*/),
         "storageKey": null
       },
+      (v6/*: any*/),
       {
         "alias": null,
         "args": null,
         "concreteType": "clubs",
         "kind": "LinkedField",
-        "name": "from_club",
-        "plural": false,
-        "selections": (v5/*: any*/),
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "clubs",
-        "kind": "LinkedField",
-        "name": "to_club",
+        "name": "clubByToClubId",
         "plural": false,
         "selections": (v5/*: any*/),
         "storageKey": null
@@ -354,7 +346,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "DashboardQuery",
-    "selections": (v6/*: any*/),
+    "selections": (v7/*: any*/),
     "type": "query_root",
     "abstractKey": null
   },
@@ -363,19 +355,19 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "DashboardQuery",
-    "selections": (v6/*: any*/)
+    "selections": (v7/*: any*/)
   },
   "params": {
-    "cacheID": "78cd231394479fe3e4de995a02fa9154",
+    "cacheID": "a425f7023f1e80e72a0ce2c9f3b9f181",
     "id": null,
     "metadata": {},
     "name": "DashboardQuery",
     "operationKind": "query",
-    "text": "query DashboardQuery {\n  clubs_aggregate {\n    aggregate {\n      count\n    }\n  }\n  players_aggregate {\n    aggregate {\n      count\n    }\n  }\n  contracts_aggregate {\n    aggregate {\n      count\n    }\n  }\n  transfers_aggregate {\n    aggregate {\n      count\n    }\n  }\n  recent_clubs: clubs(order_by: [{updated_at: desc}], limit: 5) {\n    id\n    name\n    league\n    country\n    updated_at\n  }\n  recent_players: players(order_by: [{created_at: desc}], limit: 5) {\n    id\n    name\n    position\n    current_club {\n      id\n      name\n    }\n  }\n  recent_transfers: transfers(order_by: [{created_at: desc}], limit: 5) {\n    id\n    transfer_year\n    transfer_month\n    type\n    fee\n    player {\n      id\n      name\n    }\n    from_club {\n      id\n      name\n    }\n    to_club {\n      id\n      name\n    }\n  }\n}\n"
+    "text": "query DashboardQuery {\n  clubs_aggregate {\n    aggregate {\n      count\n    }\n  }\n  players_aggregate {\n    aggregate {\n      count\n    }\n  }\n  contracts_aggregate {\n    aggregate {\n      count\n    }\n  }\n  transfers_aggregate {\n    aggregate {\n      count\n    }\n  }\n  recent_clubs: clubs(order_by: [{updated_at: desc}], limit: 5) {\n    id\n    name\n    league\n    country\n    updated_at\n  }\n  recent_players: players(order_by: [{created_at: desc}], limit: 5) {\n    id\n    name\n    position\n    club {\n      id\n      name\n    }\n  }\n  recent_transfers: transfers(order_by: [{created_at: desc}], limit: 5) {\n    id\n    transfer_year\n    transfer_month\n    type\n    fee\n    player {\n      id\n      name\n    }\n    club {\n      id\n      name\n    }\n    clubByToClubId {\n      id\n      name\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e88551d472f853a905a33a60c3656457";
+(node as any).hash = "18f42d81e1e2dabdb492be0cc5c1ae19";
 
 export default node;

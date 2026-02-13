@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a89e43a775362d558750cc9aa77324ce>>
+ * @generated SignedSource<<ada772d2195449ee3a96f7e36210d18a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,16 +13,16 @@ export type contracts_select_column = "clause" | "club_id" | "created_at" | "end
 export type order_by = "asc" | "asc_nulls_first" | "asc_nulls_last" | "desc" | "desc_nulls_first" | "desc_nulls_last" | "%future added value";
 export type players_select_column = "birth_date" | "created_at" | "current_club_id" | "id" | "name" | "nationality" | "position" | "updated_at" | "%future added value";
 export type stats_select_column = "assists" | "club_id" | "created_at" | "goals" | "id" | "matches" | "player_id" | "season" | "updated_at" | "%future added value";
-export type transfers_select_column = "created_at" | "fee" | "from_club_id" | "id" | "loan_end_month" | "loan_end_year" | "player_id" | "to_club_id" | "transfer_month" | "transfer_year" | "type" | "%future added value";
+export type transfers_select_column = "created_at" | "fee" | "from_club_id" | "id" | "loan_end_month" | "loan_end_year" | "player_id" | "to_club_id" | "transfer_month" | "transfer_year" | "type" | "updated_at" | "%future added value";
 export type players_bool_exp = {
   _and?: ReadonlyArray<players_bool_exp> | null | undefined;
   _not?: players_bool_exp | null | undefined;
   _or?: ReadonlyArray<players_bool_exp> | null | undefined;
   birth_date?: timestamp_comparison_exp | null | undefined;
+  club?: clubs_bool_exp | null | undefined;
   contracts?: contracts_bool_exp | null | undefined;
   contracts_aggregate?: contracts_aggregate_bool_exp | null | undefined;
   created_at?: timestamp_comparison_exp | null | undefined;
-  current_club?: clubs_bool_exp | null | undefined;
   current_club_id?: uuid_comparison_exp | null | undefined;
   id?: uuid_comparison_exp | null | undefined;
   name?: String_comparison_exp | null | undefined;
@@ -44,6 +44,29 @@ export type timestamp_comparison_exp = {
   _lte?: any | null | undefined;
   _neq?: any | null | undefined;
   _nin?: ReadonlyArray<any> | null | undefined;
+};
+export type clubs_bool_exp = {
+  _and?: ReadonlyArray<clubs_bool_exp> | null | undefined;
+  _not?: clubs_bool_exp | null | undefined;
+  _or?: ReadonlyArray<clubs_bool_exp> | null | undefined;
+  contracts?: contracts_bool_exp | null | undefined;
+  contracts_aggregate?: contracts_aggregate_bool_exp | null | undefined;
+  country?: String_comparison_exp | null | undefined;
+  created_at?: timestamp_comparison_exp | null | undefined;
+  founded_year?: Int_comparison_exp | null | undefined;
+  id?: uuid_comparison_exp | null | undefined;
+  league?: String_comparison_exp | null | undefined;
+  name?: String_comparison_exp | null | undefined;
+  players?: players_bool_exp | null | undefined;
+  players_aggregate?: players_aggregate_bool_exp | null | undefined;
+  stadium?: String_comparison_exp | null | undefined;
+  stats?: stats_bool_exp | null | undefined;
+  stats_aggregate?: stats_aggregate_bool_exp | null | undefined;
+  transfers?: transfers_bool_exp | null | undefined;
+  transfersByToClubId?: transfers_bool_exp | null | undefined;
+  transfersByToClubId_aggregate?: transfers_aggregate_bool_exp | null | undefined;
+  transfers_aggregate?: transfers_aggregate_bool_exp | null | undefined;
+  updated_at?: timestamp_comparison_exp | null | undefined;
 };
 export type contracts_bool_exp = {
   _and?: ReadonlyArray<contracts_bool_exp> | null | undefined;
@@ -72,28 +95,16 @@ export type Int_comparison_exp = {
   _neq?: number | null | undefined;
   _nin?: ReadonlyArray<number> | null | undefined;
 };
-export type clubs_bool_exp = {
-  _and?: ReadonlyArray<clubs_bool_exp> | null | undefined;
-  _not?: clubs_bool_exp | null | undefined;
-  _or?: ReadonlyArray<clubs_bool_exp> | null | undefined;
-  contracts?: contracts_bool_exp | null | undefined;
-  contracts_aggregate?: contracts_aggregate_bool_exp | null | undefined;
-  country?: String_comparison_exp | null | undefined;
-  created_at?: timestamp_comparison_exp | null | undefined;
-  founded_year?: Int_comparison_exp | null | undefined;
-  id?: uuid_comparison_exp | null | undefined;
-  league?: String_comparison_exp | null | undefined;
-  name?: String_comparison_exp | null | undefined;
-  players?: players_bool_exp | null | undefined;
-  players_aggregate?: players_aggregate_bool_exp | null | undefined;
-  stadium?: String_comparison_exp | null | undefined;
-  stats?: stats_bool_exp | null | undefined;
-  stats_aggregate?: stats_aggregate_bool_exp | null | undefined;
-  transfers_from?: transfers_bool_exp | null | undefined;
-  transfers_from_aggregate?: transfers_aggregate_bool_exp | null | undefined;
-  transfers_to?: transfers_bool_exp | null | undefined;
-  transfers_to_aggregate?: transfers_aggregate_bool_exp | null | undefined;
-  updated_at?: timestamp_comparison_exp | null | undefined;
+export type uuid_comparison_exp = {
+  _eq?: any | null | undefined;
+  _gt?: any | null | undefined;
+  _gte?: any | null | undefined;
+  _in?: ReadonlyArray<any> | null | undefined;
+  _is_null?: boolean | null | undefined;
+  _lt?: any | null | undefined;
+  _lte?: any | null | undefined;
+  _neq?: any | null | undefined;
+  _nin?: ReadonlyArray<any> | null | undefined;
 };
 export type contracts_aggregate_bool_exp = {
   count?: contracts_aggregate_bool_exp_count | null | undefined;
@@ -124,17 +135,6 @@ export type String_comparison_exp = {
   _nsimilar?: string | null | undefined;
   _regex?: string | null | undefined;
   _similar?: string | null | undefined;
-};
-export type uuid_comparison_exp = {
-  _eq?: any | null | undefined;
-  _gt?: any | null | undefined;
-  _gte?: any | null | undefined;
-  _in?: ReadonlyArray<any> | null | undefined;
-  _is_null?: boolean | null | undefined;
-  _lt?: any | null | undefined;
-  _lte?: any | null | undefined;
-  _neq?: any | null | undefined;
-  _nin?: ReadonlyArray<any> | null | undefined;
 };
 export type players_aggregate_bool_exp = {
   count?: players_aggregate_bool_exp_count | null | undefined;
@@ -174,20 +174,21 @@ export type transfers_bool_exp = {
   _and?: ReadonlyArray<transfers_bool_exp> | null | undefined;
   _not?: transfers_bool_exp | null | undefined;
   _or?: ReadonlyArray<transfers_bool_exp> | null | undefined;
+  club?: clubs_bool_exp | null | undefined;
+  clubByToClubId?: clubs_bool_exp | null | undefined;
   created_at?: timestamp_comparison_exp | null | undefined;
   fee?: Int_comparison_exp | null | undefined;
-  from_club?: clubs_bool_exp | null | undefined;
   from_club_id?: uuid_comparison_exp | null | undefined;
   id?: uuid_comparison_exp | null | undefined;
   loan_end_month?: Int_comparison_exp | null | undefined;
   loan_end_year?: Int_comparison_exp | null | undefined;
   player?: players_bool_exp | null | undefined;
   player_id?: uuid_comparison_exp | null | undefined;
-  to_club?: clubs_bool_exp | null | undefined;
   to_club_id?: uuid_comparison_exp | null | undefined;
   transfer_month?: Int_comparison_exp | null | undefined;
   transfer_year?: Int_comparison_exp | null | undefined;
   type?: TransferType_comparison_exp | null | undefined;
+  updated_at?: timestamp_comparison_exp | null | undefined;
 };
 export type TransferType_comparison_exp = {
   _eq?: any | null | undefined;
@@ -222,15 +223,30 @@ export type Position_comparison_exp = {
 };
 export type players_order_by = {
   birth_date?: order_by | null | undefined;
+  club?: clubs_order_by | null | undefined;
   contracts_aggregate?: contracts_aggregate_order_by | null | undefined;
   created_at?: order_by | null | undefined;
-  current_club?: clubs_order_by | null | undefined;
   current_club_id?: order_by | null | undefined;
   id?: order_by | null | undefined;
   name?: order_by | null | undefined;
   nationality?: order_by | null | undefined;
   position?: order_by | null | undefined;
   stats_aggregate?: stats_aggregate_order_by | null | undefined;
+  transfers_aggregate?: transfers_aggregate_order_by | null | undefined;
+  updated_at?: order_by | null | undefined;
+};
+export type clubs_order_by = {
+  contracts_aggregate?: contracts_aggregate_order_by | null | undefined;
+  country?: order_by | null | undefined;
+  created_at?: order_by | null | undefined;
+  founded_year?: order_by | null | undefined;
+  id?: order_by | null | undefined;
+  league?: order_by | null | undefined;
+  name?: order_by | null | undefined;
+  players_aggregate?: players_aggregate_order_by | null | undefined;
+  stadium?: order_by | null | undefined;
+  stats_aggregate?: stats_aggregate_order_by | null | undefined;
+  transfersByToClubId_aggregate?: transfers_aggregate_order_by | null | undefined;
   transfers_aggregate?: transfers_aggregate_order_by | null | undefined;
   updated_at?: order_by | null | undefined;
 };
@@ -300,21 +316,6 @@ export type contracts_var_samp_order_by = {
 export type contracts_variance_order_by = {
   clause?: order_by | null | undefined;
   salary?: order_by | null | undefined;
-};
-export type clubs_order_by = {
-  contracts_aggregate?: contracts_aggregate_order_by | null | undefined;
-  country?: order_by | null | undefined;
-  created_at?: order_by | null | undefined;
-  founded_year?: order_by | null | undefined;
-  id?: order_by | null | undefined;
-  league?: order_by | null | undefined;
-  name?: order_by | null | undefined;
-  players_aggregate?: players_aggregate_order_by | null | undefined;
-  stadium?: order_by | null | undefined;
-  stats_aggregate?: stats_aggregate_order_by | null | undefined;
-  transfers_from_aggregate?: transfers_aggregate_order_by | null | undefined;
-  transfers_to_aggregate?: transfers_aggregate_order_by | null | undefined;
-  updated_at?: order_by | null | undefined;
 };
 export type players_aggregate_order_by = {
   count?: order_by | null | undefined;
@@ -448,6 +449,7 @@ export type transfers_max_order_by = {
   transfer_month?: order_by | null | undefined;
   transfer_year?: order_by | null | undefined;
   type?: order_by | null | undefined;
+  updated_at?: order_by | null | undefined;
 };
 export type transfers_min_order_by = {
   created_at?: order_by | null | undefined;
@@ -461,6 +463,7 @@ export type transfers_min_order_by = {
   transfer_month?: order_by | null | undefined;
   transfer_year?: order_by | null | undefined;
   type?: order_by | null | undefined;
+  updated_at?: order_by | null | undefined;
 };
 export type transfers_stddev_order_by = {
   fee?: order_by | null | undefined;
@@ -520,7 +523,7 @@ export type PlayersListQuery$variables = {
 export type PlayersListQuery$data = {
   readonly players: ReadonlyArray<{
     readonly birth_date: any | null | undefined;
-    readonly current_club: {
+    readonly club: {
       readonly id: any;
       readonly name: string;
     } | null | undefined;
@@ -634,7 +637,7 @@ v7 = [
         "args": null,
         "concreteType": "clubs",
         "kind": "LinkedField",
-        "name": "current_club",
+        "name": "club",
         "plural": false,
         "selections": [
           (v5/*: any*/),
@@ -705,16 +708,16 @@ return {
     "selections": (v7/*: any*/)
   },
   "params": {
-    "cacheID": "680e2cdfe0e194466acfbc9791a978e5",
+    "cacheID": "6b89ad5016e6f67d5e8f88753734a2a0",
     "id": null,
     "metadata": {},
     "name": "PlayersListQuery",
     "operationKind": "query",
-    "text": "query PlayersListQuery(\n  $limit: Int!\n  $offset: Int!\n  $where: players_bool_exp\n  $order_by: [players_order_by!]\n) {\n  players(limit: $limit, offset: $offset, where: $where, order_by: $order_by) {\n    id\n    name\n    position\n    nationality\n    birth_date\n    current_club {\n      id\n      name\n    }\n  }\n  players_aggregate(where: $where) {\n    aggregate {\n      count\n    }\n  }\n}\n"
+    "text": "query PlayersListQuery(\n  $limit: Int!\n  $offset: Int!\n  $where: players_bool_exp\n  $order_by: [players_order_by!]\n) {\n  players(limit: $limit, offset: $offset, where: $where, order_by: $order_by) {\n    id\n    name\n    position\n    nationality\n    birth_date\n    club {\n      id\n      name\n    }\n  }\n  players_aggregate(where: $where) {\n    aggregate {\n      count\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "a776c176c684e547cb4128653a47ebd9";
+(node as any).hash = "90a1936800b1a5f2c3c439217a2aedbf";
 
 export default node;

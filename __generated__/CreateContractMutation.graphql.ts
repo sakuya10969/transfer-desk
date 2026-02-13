@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<38b0aed5eb912aa5792d656bee6a38aa>>
+ * @generated SignedSource<<4620f19cbaae3e864d576510f45ca315>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,8 +21,8 @@ export type stats_constraint = "stats_pkey" | "stats_season_player_id_club_id_ke
 export type stats_select_column = "assists" | "club_id" | "created_at" | "goals" | "id" | "matches" | "player_id" | "season" | "updated_at" | "%future added value";
 export type stats_update_column = "assists" | "club_id" | "created_at" | "goals" | "id" | "matches" | "player_id" | "season" | "updated_at" | "%future added value";
 export type transfers_constraint = "transfers_pkey" | "%future added value";
-export type transfers_select_column = "created_at" | "fee" | "from_club_id" | "id" | "loan_end_month" | "loan_end_year" | "player_id" | "to_club_id" | "transfer_month" | "transfer_year" | "type" | "%future added value";
-export type transfers_update_column = "created_at" | "fee" | "from_club_id" | "id" | "loan_end_month" | "loan_end_year" | "player_id" | "to_club_id" | "transfer_month" | "transfer_year" | "type" | "%future added value";
+export type transfers_select_column = "created_at" | "fee" | "from_club_id" | "id" | "loan_end_month" | "loan_end_year" | "player_id" | "to_club_id" | "transfer_month" | "transfer_year" | "type" | "updated_at" | "%future added value";
+export type transfers_update_column = "created_at" | "fee" | "from_club_id" | "id" | "loan_end_month" | "loan_end_year" | "player_id" | "to_club_id" | "transfer_month" | "transfer_year" | "type" | "updated_at" | "%future added value";
 export type contracts_insert_input = {
   clause?: number | null | undefined;
   club?: clubs_obj_rel_insert_input | null | undefined;
@@ -51,8 +51,8 @@ export type clubs_insert_input = {
   players?: players_arr_rel_insert_input | null | undefined;
   stadium?: string | null | undefined;
   stats?: stats_arr_rel_insert_input | null | undefined;
-  transfers_from?: transfers_arr_rel_insert_input | null | undefined;
-  transfers_to?: transfers_arr_rel_insert_input | null | undefined;
+  transfers?: transfers_arr_rel_insert_input | null | undefined;
+  transfersByToClubId?: transfers_arr_rel_insert_input | null | undefined;
   updated_at?: any | null | undefined;
 };
 export type contracts_arr_rel_insert_input = {
@@ -108,10 +108,10 @@ export type clubs_bool_exp = {
   stadium?: String_comparison_exp | null | undefined;
   stats?: stats_bool_exp | null | undefined;
   stats_aggregate?: stats_aggregate_bool_exp | null | undefined;
-  transfers_from?: transfers_bool_exp | null | undefined;
-  transfers_from_aggregate?: transfers_aggregate_bool_exp | null | undefined;
-  transfers_to?: transfers_bool_exp | null | undefined;
-  transfers_to_aggregate?: transfers_aggregate_bool_exp | null | undefined;
+  transfers?: transfers_bool_exp | null | undefined;
+  transfersByToClubId?: transfers_bool_exp | null | undefined;
+  transfersByToClubId_aggregate?: transfers_aggregate_bool_exp | null | undefined;
+  transfers_aggregate?: transfers_aggregate_bool_exp | null | undefined;
   updated_at?: timestamp_comparison_exp | null | undefined;
 };
 export type contracts_aggregate_bool_exp = {
@@ -171,10 +171,10 @@ export type players_bool_exp = {
   _not?: players_bool_exp | null | undefined;
   _or?: ReadonlyArray<players_bool_exp> | null | undefined;
   birth_date?: timestamp_comparison_exp | null | undefined;
+  club?: clubs_bool_exp | null | undefined;
   contracts?: contracts_bool_exp | null | undefined;
   contracts_aggregate?: contracts_aggregate_bool_exp | null | undefined;
   created_at?: timestamp_comparison_exp | null | undefined;
-  current_club?: clubs_bool_exp | null | undefined;
   current_club_id?: uuid_comparison_exp | null | undefined;
   id?: uuid_comparison_exp | null | undefined;
   name?: String_comparison_exp | null | undefined;
@@ -226,20 +226,21 @@ export type transfers_bool_exp = {
   _and?: ReadonlyArray<transfers_bool_exp> | null | undefined;
   _not?: transfers_bool_exp | null | undefined;
   _or?: ReadonlyArray<transfers_bool_exp> | null | undefined;
+  club?: clubs_bool_exp | null | undefined;
+  clubByToClubId?: clubs_bool_exp | null | undefined;
   created_at?: timestamp_comparison_exp | null | undefined;
   fee?: Int_comparison_exp | null | undefined;
-  from_club?: clubs_bool_exp | null | undefined;
   from_club_id?: uuid_comparison_exp | null | undefined;
   id?: uuid_comparison_exp | null | undefined;
   loan_end_month?: Int_comparison_exp | null | undefined;
   loan_end_year?: Int_comparison_exp | null | undefined;
   player?: players_bool_exp | null | undefined;
   player_id?: uuid_comparison_exp | null | undefined;
-  to_club?: clubs_bool_exp | null | undefined;
   to_club_id?: uuid_comparison_exp | null | undefined;
   transfer_month?: Int_comparison_exp | null | undefined;
   transfer_year?: Int_comparison_exp | null | undefined;
   type?: TransferType_comparison_exp | null | undefined;
+  updated_at?: timestamp_comparison_exp | null | undefined;
 };
 export type TransferType_comparison_exp = {
   _eq?: any | null | undefined;
@@ -276,9 +277,9 @@ export type players_arr_rel_insert_input = {
 };
 export type players_insert_input = {
   birth_date?: any | null | undefined;
+  club?: clubs_obj_rel_insert_input | null | undefined;
   contracts?: contracts_arr_rel_insert_input | null | undefined;
   created_at?: any | null | undefined;
-  current_club?: clubs_obj_rel_insert_input | null | undefined;
   current_club_id?: any | null | undefined;
   id?: any | null | undefined;
   name?: string | null | undefined;
@@ -324,20 +325,21 @@ export type transfers_arr_rel_insert_input = {
   on_conflict?: transfers_on_conflict | null | undefined;
 };
 export type transfers_insert_input = {
+  club?: clubs_obj_rel_insert_input | null | undefined;
+  clubByToClubId?: clubs_obj_rel_insert_input | null | undefined;
   created_at?: any | null | undefined;
   fee?: number | null | undefined;
-  from_club?: clubs_obj_rel_insert_input | null | undefined;
   from_club_id?: any | null | undefined;
   id?: any | null | undefined;
   loan_end_month?: number | null | undefined;
   loan_end_year?: number | null | undefined;
   player?: players_obj_rel_insert_input | null | undefined;
   player_id?: any | null | undefined;
-  to_club?: clubs_obj_rel_insert_input | null | undefined;
   to_club_id?: any | null | undefined;
   transfer_month?: number | null | undefined;
   transfer_year?: number | null | undefined;
   type?: any | null | undefined;
+  updated_at?: any | null | undefined;
 };
 export type transfers_on_conflict = {
   constraint: transfers_constraint;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<91ddd2bd8a4270558252056238cecd85>>
+ * @generated SignedSource<<f7e1956bb49b98a264364fd88df2d12e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,6 +21,7 @@ export type transfers_set_input = {
   transfer_month?: number | null | undefined;
   transfer_year?: number | null | undefined;
   type?: any | null | undefined;
+  updated_at?: any | null | undefined;
 };
 export type UpdateTransferMutation$variables = {
   id: any;

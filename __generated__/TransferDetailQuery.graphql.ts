@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<73dc5c503d055ae40c962931dd8377c7>>
+ * @generated SignedSource<<3941eeabddcab8af2bb06a7880f8f7c3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,20 +14,20 @@ export type TransferDetailQuery$variables = {
 };
 export type TransferDetailQuery$data = {
   readonly transfers_by_pk: {
-    readonly created_at: any;
-    readonly fee: number | null | undefined;
-    readonly from_club: {
+    readonly club: {
       readonly id: any;
       readonly name: string;
     } | null | undefined;
+    readonly clubByToClubId: {
+      readonly id: any;
+      readonly name: string;
+    };
+    readonly created_at: any;
+    readonly fee: number | null | undefined;
     readonly id: any;
     readonly loan_end_month: number | null | undefined;
     readonly loan_end_year: number | null | undefined;
     readonly player: {
-      readonly id: any;
-      readonly name: string;
-    };
-    readonly to_club: {
       readonly id: any;
       readonly name: string;
     };
@@ -146,7 +146,7 @@ v3 = [
         "args": null,
         "concreteType": "clubs",
         "kind": "LinkedField",
-        "name": "from_club",
+        "name": "club",
         "plural": false,
         "selections": (v2/*: any*/),
         "storageKey": null
@@ -156,7 +156,7 @@ v3 = [
         "args": null,
         "concreteType": "clubs",
         "kind": "LinkedField",
-        "name": "to_club",
+        "name": "clubByToClubId",
         "plural": false,
         "selections": (v2/*: any*/),
         "storageKey": null
@@ -183,16 +183,16 @@ return {
     "selections": (v3/*: any*/)
   },
   "params": {
-    "cacheID": "42e7dd9e78cd0ecfddf63cbe92044a2e",
+    "cacheID": "adbf8790e152086b736fbd38af185b93",
     "id": null,
     "metadata": {},
     "name": "TransferDetailQuery",
     "operationKind": "query",
-    "text": "query TransferDetailQuery(\n  $id: uuid!\n) {\n  transfers_by_pk(id: $id) {\n    id\n    transfer_year\n    transfer_month\n    type\n    fee\n    loan_end_year\n    loan_end_month\n    created_at\n    player {\n      id\n      name\n    }\n    from_club {\n      id\n      name\n    }\n    to_club {\n      id\n      name\n    }\n  }\n}\n"
+    "text": "query TransferDetailQuery(\n  $id: uuid!\n) {\n  transfers_by_pk(id: $id) {\n    id\n    transfer_year\n    transfer_month\n    type\n    fee\n    loan_end_year\n    loan_end_month\n    created_at\n    player {\n      id\n      name\n    }\n    club {\n      id\n      name\n    }\n    clubByToClubId {\n      id\n      name\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "acdab7c06191ef700ee5bff94bb412d7";
+(node as any).hash = "838e230335d24ebee5fba34c2a09a4ae";
 
 export default node;
