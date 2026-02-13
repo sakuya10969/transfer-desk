@@ -38,7 +38,7 @@ enum TransferType {
 }
 
 model Club {
-  id          String   @id @default(uuid()) @db.Uuid
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name        String   @db.VarChar(80)
   country     String?  @db.VarChar(80)
   league      String?  @db.VarChar(80)
@@ -46,7 +46,7 @@ model Club {
   stadium     String?  @db.VarChar(120)
 
   createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
 
   players       Player[]   @relation("CurrentClub")
   contracts     Contract[]
@@ -59,7 +59,7 @@ model Club {
 }
 
 model Player {
-  id            String    @id @default(uuid()) @db.Uuid
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name          String    @db.VarChar(120)
   position      Position?
   nationality   String?   @db.VarChar(80)
@@ -69,7 +69,7 @@ model Player {
   currentClub   Club?     @relation("CurrentClub", fields: [currentClubId], references: [id], onDelete: SetNull)
 
   createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
+  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
 
   contracts     Contract[]
   stats         Stat[]
@@ -81,7 +81,7 @@ model Player {
 }
 
 model Transfer {
-  id           String       @id @default(uuid()) @db.Uuid
+  id           String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
   playerId     String       @db.Uuid @map("player_id")
   player       Player       @relation(fields: [playerId], references: [id], onDelete: Cascade)
@@ -102,6 +102,7 @@ model Transfer {
   loanEndMonth Int?         @map("loan_end_month")
 
   createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @default(now()) @updatedAt @map("updated_at")
 
   @@map("transfers")
   @@index([playerId, transferYear, transferMonth])
@@ -110,7 +111,7 @@ model Transfer {
 }
 
 model Contract {
-  id        String    @id @default(uuid()) @db.Uuid
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
   playerId  String    @db.Uuid @map("player_id")
   player    Player    @relation(fields: [playerId], references: [id], onDelete: Cascade)
@@ -124,7 +125,7 @@ model Contract {
   clause    Int?
 
   createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
 
   @@map("contracts")
   @@index([playerId])
@@ -132,7 +133,7 @@ model Contract {
 }
 
 model Stat {
-  id       String @id @default(uuid()) @db.Uuid
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
   season   String @db.VarChar(20)
 
@@ -147,7 +148,7 @@ model Stat {
   assists  Int    @default(0)
 
   createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("stats")
   @@unique([season, playerId, clubId])
