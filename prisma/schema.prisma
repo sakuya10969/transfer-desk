@@ -49,6 +49,8 @@ model Club {
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   players       Player[]   @relation("CurrentClub")
+  contracts     Contract[]
+  stats         Stat[]
   transfersFrom Transfer[] @relation("TransferFromClub")
   transfersTo   Transfer[] @relation("TransferToClub")
 
@@ -69,6 +71,8 @@ model Player {
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
 
+  contracts     Contract[]
+  stats         Stat[]
   transfers     Transfer[]
 
   @@map("players")
@@ -103,4 +107,50 @@ model Transfer {
   @@index([playerId, transferYear, transferMonth])
   @@index([toClubId, transferYear, transferMonth])
   @@index([fromClubId, transferYear, transferMonth])
+}
+
+model Contract {
+  id        String    @id @default(uuid()) @db.Uuid
+
+  playerId  String    @db.Uuid @map("player_id")
+  player    Player    @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  clubId    String    @db.Uuid @map("club_id")
+  club      Club      @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  startDate DateTime  @map("start_date")
+  endDate   DateTime? @map("end_date")
+  salary    Int?
+  clause    Int?
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  @@map("contracts")
+  @@index([playerId])
+  @@index([clubId])
+}
+
+model Stat {
+  id       String @id @default(uuid()) @db.Uuid
+
+  season   String @db.VarChar(20)
+
+  playerId String @db.Uuid @map("player_id")
+  player   Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  clubId   String @db.Uuid @map("club_id")
+  club     Club   @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  matches  Int    @default(0)
+  goals    Int    @default(0)
+  assists  Int    @default(0)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("stats")
+  @@unique([season, playerId, clubId])
+  @@index([playerId])
+  @@index([clubId])
 }
