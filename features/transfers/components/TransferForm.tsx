@@ -97,8 +97,8 @@ export function TransferForm({ transferId }: { transferId?: string }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       playerId: transfer?.player?.id ?? "",
-      fromClubId: transfer?.from_club?.id ?? "",
-      toClubId: transfer?.to_club?.id ?? "",
+      fromClubId: transfer?.club?.id ?? "",
+      toClubId: transfer?.clubByToClubId?.id ?? "",
       transferYear: transfer?.transfer_year?.toString() ?? "",
       transferMonth: transfer?.transfer_month?.toString() ?? "",
       type: transfer?.type ?? "PERMANENT",
@@ -112,8 +112,8 @@ export function TransferForm({ transferId }: { transferId?: string }) {
     if (transfer && isEdit) {
       form.reset({
         playerId: transfer.player.id,
-        fromClubId: transfer.from_club?.id ?? "",
-        toClubId: transfer.to_club.id,
+        fromClubId: transfer.club?.id ?? "",
+        toClubId: transfer.clubByToClubId.id,
         transferYear: transfer.transfer_year.toString(),
         transferMonth: transfer.transfer_month.toString(),
         type: transfer.type,

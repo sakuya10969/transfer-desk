@@ -27,7 +27,7 @@ export const ClubDetailQuery = graphql`
           name
         }
       }
-      transfers_to {
+      transfersByToClubId {
         id
         transfer_year
         transfer_month
@@ -37,12 +37,12 @@ export const ClubDetailQuery = graphql`
           id
           name
         }
-        from_club {
+        club {
           id
           name
         }
       }
-      transfers_from {
+      transfers {
         id
         transfer_year
         transfer_month
@@ -52,7 +52,7 @@ export const ClubDetailQuery = graphql`
           id
           name
         }
-        to_club {
+        clubByToClubId {
           id
           name
         }

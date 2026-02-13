@@ -77,12 +77,12 @@ export function TransferDetail({ id }: { id: string }) {
             <div>
               <dt className="text-sm text-muted-foreground">移籍元</dt>
               <dd>
-                {transfer.from_club ? (
+                {transfer.club ? (
                   <Link
-                    href={`/clubs/${transfer.from_club.id}`}
+                    href={`/clubs/${transfer.club.id}`}
                     className="text-primary hover:underline"
                   >
-                    {transfer.from_club.name}
+                    {transfer.club.name}
                   </Link>
                 ) : (
                   "-"
@@ -93,10 +93,10 @@ export function TransferDetail({ id }: { id: string }) {
               <dt className="text-sm text-muted-foreground">移籍先</dt>
               <dd>
                 <Link
-                  href={`/clubs/${transfer.to_club.id}`}
+                  href={`/clubs/${transfer.clubByToClubId.id}`}
                   className="text-primary hover:underline"
                 >
-                  {transfer.to_club.name}
+                  {transfer.clubByToClubId.name}
                 </Link>
               </dd>
             </div>

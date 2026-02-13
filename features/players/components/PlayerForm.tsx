@@ -70,7 +70,7 @@ export function PlayerForm({ playerId }: { playerId?: string }) {
       position: player?.position ?? "",
       nationality: player?.nationality ?? "",
       birthDate: player?.birth_date?.slice(0, 10) ?? "",
-      currentClubId: player?.current_club?.id ?? "",
+      currentClubId: player?.club?.id ?? "",
     },
   });
 

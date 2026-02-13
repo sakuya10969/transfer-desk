@@ -13,7 +13,7 @@ export const PlayersListQuery = graphql`
       position
       nationality
       birth_date
-      current_club {
+      club {
         id
         name
       }

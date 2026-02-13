@@ -133,7 +133,7 @@ export function Dashboard() {
                     </Link>
                     <span className="text-muted-foreground">
                       {player.position ?? "-"}{" "}
-                      {player.current_club ? `/ ${player.current_club.name}` : ""}
+                      {player.club ? `/ ${player.club.name}` : ""}
                     </span>
                   </li>
                 ))}
@@ -178,12 +178,12 @@ export function Dashboard() {
                         </Link>
                       </td>
                       <td className="py-2">
-                        {t.from_club ? (
+                        {t.club ? (
                           <Link
-                            href={`/clubs/${t.from_club.id}`}
+                            href={`/clubs/${t.club.id}`}
                             className="text-primary hover:underline"
                           >
-                            {t.from_club.name}
+                            {t.club.name}
                           </Link>
                         ) : (
                           "-"
@@ -191,10 +191,10 @@ export function Dashboard() {
                       </td>
                       <td className="py-2">
                         <Link
-                          href={`/clubs/${t.to_club.id}`}
+                          href={`/clubs/${t.clubByToClubId.id}`}
                           className="text-primary hover:underline"
                         >
-                          {t.to_club.name}
+                          {t.clubByToClubId.name}
                         </Link>
                       </td>
                       <td className="py-2">{t.type}</td>

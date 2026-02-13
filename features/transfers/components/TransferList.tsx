@@ -111,12 +111,12 @@ export function TransferList() {
                         </Link>
                       </td>
                       <td className="py-3">
-                        {t.from_club ? (
+                        {t.club ? (
                           <Link
-                            href={`/clubs/${t.from_club.id}`}
+                            href={`/clubs/${t.club.id}`}
                             className="text-primary hover:underline"
                           >
-                            {t.from_club.name}
+                            {t.club.name}
                           </Link>
                         ) : (
                           "-"
@@ -124,10 +124,10 @@ export function TransferList() {
                       </td>
                       <td className="py-3">
                         <Link
-                          href={`/clubs/${t.to_club.id}`}
+                          href={`/clubs/${t.clubByToClubId.id}`}
                           className="text-primary hover:underline"
                         >
-                          {t.to_club.name}
+                          {t.clubByToClubId.name}
                         </Link>
                       </td>
                       <td className="py-3">{t.type}</td>

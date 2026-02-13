@@ -10,7 +10,7 @@ export const PlayerDetailQuery = graphql`
       birth_date
       created_at
       updated_at
-      current_club {
+      club {
         id
         name
       }
@@ -31,11 +31,11 @@ export const PlayerDetailQuery = graphql`
         transfer_month
         type
         fee
-        from_club {
+        club {
           id
           name
         }
-        to_club {
+        clubByToClubId {
           id
           name
         }

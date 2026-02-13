@@ -15,11 +15,11 @@ export const TransferDetailQuery = graphql`
         id
         name
       }
-      from_club {
+      club {
         id
         name
       }
-      to_club {
+      clubByToClubId {
         id
         name
       }

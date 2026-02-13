@@ -149,12 +149,12 @@ export function PlayerList() {
                       <td className="py-3">{player.position ?? "-"}</td>
                       <td className="py-3">{player.nationality ?? "-"}</td>
                       <td className="py-3">
-                        {player.current_club ? (
+                        {player.club ? (
                           <Link
-                            href={`/clubs/${player.current_club.id}`}
+                            href={`/clubs/${player.club.id}`}
                             className="text-primary hover:underline"
                           >
-                            {player.current_club.name}
+                            {player.club.name}
                           </Link>
                         ) : (
                           "-"

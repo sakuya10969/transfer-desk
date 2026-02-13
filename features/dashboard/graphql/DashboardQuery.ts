@@ -33,7 +33,7 @@ export const DashboardQuery = graphql`
       id
       name
       position
-      current_club {
+      club {
         id
         name
       }
@@ -48,11 +48,11 @@ export const DashboardQuery = graphql`
         id
         name
       }
-      from_club {
+      club {
         id
         name
       }
-      to_club {
+      clubByToClubId {
         id
         name
       }

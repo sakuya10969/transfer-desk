@@ -72,12 +72,12 @@ export function PlayerDetail({ id }: { id: string }) {
             <div>
               <dt className="text-sm text-muted-foreground">所属クラブ</dt>
               <dd>
-                {player.current_club ? (
+                {player.club ? (
                   <Link
-                    href={`/clubs/${player.current_club.id}`}
+                    href={`/clubs/${player.club.id}`}
                     className="text-primary hover:underline"
                   >
-                    {player.current_club.name}
+                    {player.club.name}
                   </Link>
                 ) : (
                   "-"
@@ -158,12 +158,12 @@ export function PlayerDetail({ id }: { id: string }) {
                       {t.transfer_year}/{t.transfer_month}
                     </td>
                     <td className="py-2">
-                      {t.from_club ? (
+                      {t.club ? (
                         <Link
-                          href={`/clubs/${t.from_club.id}`}
+                          href={`/clubs/${t.club.id}`}
                           className="text-primary hover:underline"
                         >
-                          {t.from_club.name}
+                          {t.club.name}
                         </Link>
                       ) : (
                         "-"
@@ -171,10 +171,10 @@ export function PlayerDetail({ id }: { id: string }) {
                     </td>
                     <td className="py-2">
                       <Link
-                        href={`/clubs/${t.to_club.id}`}
+                        href={`/clubs/${t.clubByToClubId.id}`}
                         className="text-primary hover:underline"
                       >
-                        {t.to_club.name}
+                        {t.clubByToClubId.name}
                       </Link>
                     </td>
                     <td className="py-2">{t.type}</td>

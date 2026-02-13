@@ -161,11 +161,11 @@ export function ClubDetail({ id }: { id: string }) {
           <CardTitle>移籍履歴</CardTitle>
         </CardHeader>
         <CardContent>
-          {club.transfers_to.length === 0 && club.transfers_from.length === 0 ? (
+          {club.transfersByToClubId.length === 0 && club.transfers.length === 0 ? (
             <p className="text-sm text-muted-foreground">移籍履歴なし</p>
           ) : (
             <div className="space-y-4">
-              {club.transfers_to.length > 0 && (
+              {club.transfersByToClubId.length > 0 && (
                 <div>
                   <h4 className="mb-2 text-sm font-medium">加入</h4>
                   <table className="w-full text-sm">
@@ -179,7 +179,7 @@ export function ClubDetail({ id }: { id: string }) {
                       </tr>
                     </thead>
                     <tbody>
-                      {club.transfers_to.map((t) => (
+                      {club.transfersByToClubId.map((t) => (
                         <tr key={t.id} className="border-b last:border-0">
                           <td className="py-2">
                             <Link
@@ -190,12 +190,12 @@ export function ClubDetail({ id }: { id: string }) {
                             </Link>
                           </td>
                           <td className="py-2">
-                            {t.from_club ? (
+                            {t.club ? (
                               <Link
-                                href={`/clubs/${t.from_club.id}`}
+                                href={`/clubs/${t.club.id}`}
                                 className="text-primary hover:underline"
                               >
-                                {t.from_club.name}
+                                {t.club.name}
                               </Link>
                             ) : (
                               "-"
@@ -215,7 +215,7 @@ export function ClubDetail({ id }: { id: string }) {
                 </div>
               )}
 
-              {club.transfers_from.length > 0 && (
+              {club.transfers.length > 0 && (
                 <div>
                   <Separator className="my-4" />
                   <h4 className="mb-2 text-sm font-medium">退団</h4>
@@ -230,7 +230,7 @@ export function ClubDetail({ id }: { id: string }) {
                       </tr>
                     </thead>
                     <tbody>
-                      {club.transfers_from.map((t) => (
+                      {club.transfers.map((t) => (
                         <tr key={t.id} className="border-b last:border-0">
                           <td className="py-2">
                             <Link
@@ -242,10 +242,10 @@ export function ClubDetail({ id }: { id: string }) {
                           </td>
                           <td className="py-2">
                             <Link
-                              href={`/clubs/${t.to_club.id}`}
+                              href={`/clubs/${t.clubByToClubId.id}`}
                               className="text-primary hover:underline"
                             >
-                              {t.to_club.name}
+                              {t.clubByToClubId.name}
                             </Link>
                           </td>
                           <td className="py-2">
