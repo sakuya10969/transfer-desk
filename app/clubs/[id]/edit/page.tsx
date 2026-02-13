@@ -1,3 +1,6 @@
+"use client";
+
+import { useParams } from "next/navigation";
 import dynamic from "next/dynamic";
 
 const ClubForm = dynamic(
@@ -5,10 +8,12 @@ const ClubForm = dynamic(
   { ssr: false, loading: () => <p className="text-sm text-muted-foreground">読み込み中...</p> },
 );
 
-export default function NewClubPage() {
+export default function EditClubPage() {
+  const params = useParams<{ id: string }>();
+
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <ClubForm />
+      <ClubForm clubId={params.id} />
     </div>
   );
 }
