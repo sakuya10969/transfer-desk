@@ -152,7 +152,7 @@ export function ClubForm({ clubId }: { clubId?: string }) {
                   <FormItem>
                     <FormLabel>クラブ名 *</FormLabel>
                     <FormControl>
-                      <Input placeholder="Liverpool" {...field} />
+                      <Input placeholder="リヴァプール" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -167,7 +167,7 @@ export function ClubForm({ clubId }: { clubId?: string }) {
                     <FormItem>
                       <FormLabel>国</FormLabel>
                       <FormControl>
-                        <Input placeholder="England" {...field} />
+                        <Input placeholder="イングランド" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -191,7 +191,7 @@ export function ClubForm({ clubId }: { clubId?: string }) {
                             {LEAGUES.map((league) => (
                               <SelectItem
                                 key={league.id}
-                                value={league.id.toString()}
+                                value={league.name ?? ""}
                               >
                                 {league.name}
                               </SelectItem>
@@ -231,7 +231,7 @@ export function ClubForm({ clubId }: { clubId?: string }) {
                     <FormItem>
                       <FormLabel>スタジアム</FormLabel>
                       <FormControl>
-                        <Input placeholder="Anfield" {...field} />
+                        <Input placeholder="アンフィールド" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
