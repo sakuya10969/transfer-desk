@@ -18,13 +18,20 @@ import {
 } from "@/components/ui";
 
 const PAGE_SIZE = 20;
+const normalizeDigits = (value: string): string =>
+  value
+    .replace(/[０-９]/g, (digit) =>
+      String.fromCharCode(digit.charCodeAt(0) - 0xfee0),
+    )
+    .replace(/\D/g, "");
 
 export function TransferList() {
   const [page, setPage] = useState<number>(0);
-  const [yearFilter, setYearFilter] = useState<string>("");
+  const [yearInput, setYearInput] = useState<string>("");
+  const [yearFilter, setYearFilter] = useState<number | null>(null);
 
-  const where = yearFilter
-    ? { transfer_year: { _eq: Number(yearFilter) } }
+  const where = yearFilter !== null
+    ? { transfer_year: { _eq: yearFilter } }
     : {};
 
   const queryVars = {
@@ -56,28 +63,47 @@ export function TransferList() {
     [commitDelete],
   );
 
+  const handleSearch = useCallback(() => {
+    const normalizedYear = normalizeDigits(yearInput.trim());
+    setYearFilter(normalizedYear ? Number(normalizedYear) : null);
+    setYearInput(normalizedYear);
+    setPage(0);
+  }, [yearInput]);
+
+  const handleClear = useCallback(() => {
+    setYearInput("");
+    setYearFilter(null);
+    setPage(0);
+  }, []);
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3">
+      <form
+        className="flex items-center gap-3"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSearch();
+        }}
+      >
         <Input
           placeholder="年で絞り込み（例: 2024）"
-          value={yearFilter}
-          onChange={(e) => {
-            setYearFilter(e.target.value);
-            setPage(0);
-          }}
+          value={yearInput}
+          onChange={(e) => setYearInput(e.target.value)}
           className="max-w-48"
           inputMode="numeric"
         />
-        {yearFilter && (
-          <Button variant="ghost" onClick={() => setYearFilter("")}>
+        <Button type="submit" variant="outline">
+          検索
+        </Button>
+        {yearFilter !== null && (
+          <Button type="button" variant="ghost" onClick={handleClear}>
             クリア
           </Button>
         )}
         <span className="ml-auto text-sm text-muted-foreground">
           {totalCount} 件
         </span>
-      </div>
+      </form>
 
       <Card>
         <CardHeader>
