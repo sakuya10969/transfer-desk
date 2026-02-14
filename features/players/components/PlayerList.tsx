@@ -36,14 +36,17 @@ export function PlayerList() {
   if (positionFilter) conditions.push({ position: { _eq: positionFilter } });
   const where = conditions.length > 0 ? { _and: conditions } : {};
 
-  const data = useLazyLoadQuery<PlayersListQueryType>(PlayersListQuery, {
+  const queryVars = {
     limit: PAGE_SIZE,
     offset: page * PAGE_SIZE,
     where,
-    order_by: [{ name: "asc" as any }],
-  }, { fetchPolicy: "network-only" });
+    order_by: [{ name: "asc" }],
+  } as const;
+
+  const data = useLazyLoadQuery<PlayersListQueryType>(PlayersListQuery, queryVars, { fetchPolicy: "store-and-network" });
 
   const [commitDelete] = useMutation<DeletePlayerMutationType>(DeletePlayerMutation);
+  const [, setRefetchKey] = useState<number>(0);
 
   const totalCount = data.players_aggregate.aggregate?.count ?? 0;
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
@@ -58,7 +61,10 @@ export function PlayerList() {
       if (!confirm(`「${name}」を削除しますか？`)) return;
       commitDelete({
         variables: { id },
-        onCompleted: () => window.location.reload(),
+        updater: (store) => {
+          store.delete(`players:${id}`);
+        },
+        onCompleted: () => setRefetchKey((k) => k + 1),
       });
     },
     [commitDelete],

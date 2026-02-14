@@ -27,14 +27,17 @@ export function TransferList() {
     ? { transfer_year: { _eq: Number(yearFilter) } }
     : {};
 
-  const data = useLazyLoadQuery<TransfersListQueryType>(TransfersListQuery, {
+  const queryVars = {
     limit: PAGE_SIZE,
     offset: page * PAGE_SIZE,
     where,
-    order_by: [{ transfer_year: "desc" as any }, { transfer_month: "desc" as any }],
-  }, { fetchPolicy: "network-only" });
+    order_by: [{ transfer_year: "desc" }, { transfer_month: "desc" }],
+  } as const;
+
+  const data = useLazyLoadQuery<TransfersListQueryType>(TransfersListQuery, queryVars, { fetchPolicy: "store-and-network" });
 
   const [commitDelete] = useMutation<DeleteTransferMutationType>(DeleteTransferMutation);
+  const [, setRefetchKey] = useState<number>(0);
 
   const totalCount = data.transfers_aggregate.aggregate?.count ?? 0;
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
@@ -44,7 +47,10 @@ export function TransferList() {
       if (!confirm("この移籍記録を削除しますか？")) return;
       commitDelete({
         variables: { id },
-        onCompleted: () => window.location.reload(),
+        updater: (store) => {
+          store.delete(`transfers:${id}`);
+        },
+        onCompleted: () => setRefetchKey((k) => k + 1),
       });
     },
     [commitDelete],

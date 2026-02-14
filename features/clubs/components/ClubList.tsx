@@ -28,14 +28,17 @@ export function ClubList() {
     ? { name: { _ilike: `%${search}%` } }
     : undefined;
 
-  const data = useLazyLoadQuery<ClubsListQueryType>(ClubsListQuery, {
+  const queryVars = {
     limit: PAGE_SIZE,
     offset: page * PAGE_SIZE,
     where: where ?? {},
-    order_by: [{ name: "asc" as any }],
-  }, { fetchPolicy: "network-only" });
+    order_by: [{ name: "asc" }],
+  } as const;
+
+  const data = useLazyLoadQuery<ClubsListQueryType>(ClubsListQuery, queryVars, { fetchPolicy: "store-and-network" });
 
   const [commitDelete] = useMutation<DeleteClubMutationType>(DeleteClubMutation);
+  const [, setRefetchKey] = useState<number>(0);
 
   const totalCount = data.clubs_aggregate.aggregate?.count ?? 0;
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
@@ -50,7 +53,10 @@ export function ClubList() {
       if (!confirm(`「${name}」を削除しますか？`)) return;
       commitDelete({
         variables: { id },
-        onCompleted: () => window.location.reload(),
+        updater: (store) => {
+          store.delete(`clubs:${id}`);
+        },
+        onCompleted: () => setRefetchKey((k) => k + 1),
       });
     },
     [commitDelete],

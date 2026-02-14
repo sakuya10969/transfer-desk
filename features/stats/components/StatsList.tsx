@@ -27,14 +27,17 @@ export function StatsList() {
     ? { season: { _eq: seasonFilter } }
     : {};
 
-  const data = useLazyLoadQuery<StatsListQueryType>(StatsListQuery, {
+  const queryVars = {
     limit: PAGE_SIZE,
     offset: page * PAGE_SIZE,
     where,
-    order_by: [{ season: "desc" as any }, { goals: "desc" as any }],
-  }, { fetchPolicy: "network-only" });
+    order_by: [{ season: "desc" }, { goals: "desc" }],
+  } as const;
+
+  const data = useLazyLoadQuery<StatsListQueryType>(StatsListQuery, queryVars, { fetchPolicy: "store-and-network" });
 
   const [commitDelete] = useMutation<DeleteStatMutationType>(DeleteStatMutation);
+  const [, setRefetchKey] = useState<number>(0);
 
   const totalCount = data.stats_aggregate.aggregate?.count ?? 0;
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
@@ -44,7 +47,10 @@ export function StatsList() {
       if (!confirm("この成績データを削除しますか？")) return;
       commitDelete({
         variables: { id },
-        onCompleted: () => window.location.reload(),
+        updater: (store) => {
+          store.delete(`stats:${id}`);
+        },
+        onCompleted: () => setRefetchKey((k) => k + 1),
       });
     },
     [commitDelete],

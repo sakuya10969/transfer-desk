@@ -76,7 +76,7 @@ export function StatForm({ statId }: { statId?: string }) {
     limit: 1000,
     offset: 0,
     where: {},
-    order_by: [{ name: "asc" as any }],
+    order_by: [{ name: "asc" as const }],
   });
 
   const [commitCreate] = useMutation<CreateStatMutationType>(CreateStatMutation);

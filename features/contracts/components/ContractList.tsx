@@ -21,14 +21,17 @@ const PAGE_SIZE = 20;
 export function ContractList() {
   const [page, setPage] = useState<number>(0);
 
-  const data = useLazyLoadQuery<ContractsListQueryType>(ContractsListQuery, {
+  const queryVars = {
     limit: PAGE_SIZE,
     offset: page * PAGE_SIZE,
     where: {},
-    order_by: [{ start_date: "desc" as any }],
-  }, { fetchPolicy: "network-only" });
+    order_by: [{ start_date: "desc" }],
+  } as const;
+
+  const data = useLazyLoadQuery<ContractsListQueryType>(ContractsListQuery, queryVars, { fetchPolicy: "store-and-network" });
 
   const [commitDelete] = useMutation<DeleteContractMutationType>(DeleteContractMutation);
+  const [, setRefetchKey] = useState<number>(0);
 
   const totalCount = data.contracts_aggregate.aggregate?.count ?? 0;
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
@@ -38,7 +41,10 @@ export function ContractList() {
       if (!confirm("この契約を削除しますか？")) return;
       commitDelete({
         variables: { id },
-        onCompleted: () => window.location.reload(),
+        updater: (store) => {
+          store.delete(`contracts:${id}`);
+        },
+        onCompleted: () => setRefetchKey((k) => k + 1),
       });
     },
     [commitDelete],
