@@ -35,7 +35,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui";
-import { POSITIONS } from "@/constants/positions";
+import { POSITIONS } from "@/constants";
 
 const formSchema = z.object({
   name: z.string().min(1).max(120),
@@ -141,7 +141,7 @@ export function PlayerForm({ playerId }: { playerId?: string }) {
                   <FormItem>
                     <FormLabel>選手名 *</FormLabel>
                     <FormControl>
-                      <Input placeholder="Mohamed Salah" {...field} />
+                      <Input placeholder="モハメドサラー" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -183,7 +183,7 @@ export function PlayerForm({ playerId }: { playerId?: string }) {
                     <FormItem>
                       <FormLabel>国籍</FormLabel>
                       <FormControl>
-                        <Input placeholder="Egypt" {...field} />
+                        <Input placeholder="エジプト" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

@@ -21,7 +21,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui";
-import { POSITIONS } from "@/constants/positions";
+import { POSITIONS } from "@/constants";
 
 const PAGE_SIZE = 20;
 
