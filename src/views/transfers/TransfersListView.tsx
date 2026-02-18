@@ -1,0 +1,28 @@
+"use client";
+
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+
+import { Button } from "@/shared/ui";
+
+const TransferList = dynamic(
+  () => import("@/entities/transfers/ui/TransferList").then((m) => m.TransferList),
+  { ssr: false, loading: () => <p className="text-sm text-muted-foreground">読み込み中...</p> },
+);
+
+export function TransfersListView() {
+  return (
+    <div className="p-6 space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold">移籍管理</h1>
+        <Button asChild>
+          <Link href="/transfers/new">移籍を登録</Link>
+        </Button>
+      </div>
+      <Suspense fallback={<p className="text-sm text-muted-foreground">移籍一覧を読み込み中...</p>}>
+        <TransferList />
+      </Suspense>
+    </div>
+  );
+}
