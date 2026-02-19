@@ -1,4 +1,8 @@
-# Claude Instructions
+---
+trigger: always_on
+---
+
+# Google Antigravity Instructions
 
 Before any task, read `/docs/INDEX.md` and follow the documentation.
 

@@ -1,4 +1,4 @@
-# Claude Instructions
+# Codex Instructions
 
 Before any task, read `/docs/INDEX.md` and follow the documentation.
 
