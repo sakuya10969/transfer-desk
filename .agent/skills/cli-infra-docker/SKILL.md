@@ -1,3 +1,8 @@
+---
+name: cli-infra-docker
+description: Use when you need to manage local Docker infrastructure and Hasura metadata.
+---
+
 # CLI: Infrastructure, Docker & Hasura
 
 Provides commands to manage the foundational infrastructure (Postgres, Hasura) using Docker Compose, as well as accessing Hasura metadata operations.

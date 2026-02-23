@@ -1,3 +1,8 @@
+---
+name: cli-quality
+description: Use when you need to lint, format, or type-check the codebase.
+---
+
 # CLI: Code Quality Checks & Fixes
 
 Provides commands to ensure the codebase adheres to formatting, linting, and TypeScript type-checking standards.

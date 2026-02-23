@@ -1,3 +1,8 @@
+---
+name: cli-index
+description: Use when you need to route tasks to the correct CLI skill.
+---
+
 # CLI Script Index
 
 This skill serves as the central directory for executing repository npm/pnpm scripts. Use this guide to route your goals to the correct skill documentation.

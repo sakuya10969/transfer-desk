@@ -1,3 +1,8 @@
+---
+name: cli-relay-graphql
+description: Use when you need to fetch schemas or compile Relay artifacts.
+---
+
 # CLI: Relay, GraphQL & Codegen
 
 Provides commands for fetching the GraphQL schema from the Hasura endpoint and compiling Relay artifacts for the frontend to consume.

@@ -1,3 +1,8 @@
+---
+name: cli-database-prisma
+description: Use when you need to manage database migrations or inspect data with Prisma.
+---
+
 # CLI: Database & Prisma
 
 Provides commands for managing database migrations, generating the Prisma Client, and interacting visually with the local database.

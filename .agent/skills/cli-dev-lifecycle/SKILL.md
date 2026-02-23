@@ -1,3 +1,8 @@
+---
+name: cli-dev-lifecycle
+description: Use when you need to manage the development environment and server lifecycle.
+---
+
 # CLI: Development Lifecycle
 
 Provides commands for starting the local development server, building the application, running production servers, and comprehensive environment setup or cleanup.
